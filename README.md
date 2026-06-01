@@ -28,3 +28,4 @@ so optimization, sizing, and preload are handled automatically.
 
 No Three.js / WebGL — the 3D effect is achieved with CSS transforms, layered DOM and
 Framer Motion springs, so it degrades gracefully and remains fast everywhere.
+# portfolio
