@@ -95,7 +95,7 @@ export default function About() {
           <div>
             <div className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/55">
               <span className="h-px w-8 bg-bone-100/30" />
-              02 — About
+              02 — À propos
             </div>
             <h2
               id="about-title"

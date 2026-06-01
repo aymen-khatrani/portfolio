@@ -103,7 +103,7 @@ export default function ExperienceSection() {
           <div>
             <div className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/55">
               <span className="h-px w-8 bg-bone-100/30" />
-              04 — Experience
+              03 — Expériences
             </div>
             <h2
               id="experience-title"

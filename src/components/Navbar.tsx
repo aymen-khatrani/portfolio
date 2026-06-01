@@ -6,14 +6,15 @@ import { motion } from 'framer-motion';
 import { usePrefersReducedMotion } from '@/lib/usePrefersReducedMotion';
 
 const links = [
-  { href: '#work', label: 'Work' },
-  { href: '#about', label: 'About' },
+  { href: '#about', label: 'À propos' },
+  { href: '#experience', label: 'Expériences' },
+  { href: '#work', label: 'Projets' },
   { href: '/aymen-khatrani-cv.pdf', label: 'CV', external: true },
   { href: 'mailto:aymen.khatrani@polytech-lille.net', label: 'Contact', external: true },
 ];
 
 // Section ids tracked for the active-link indicator, in document order.
-const sectionIds = ['work', 'about', 'experience'];
+const sectionIds = ['about', 'work', 'experience'];
 
 const socials = [
   {
