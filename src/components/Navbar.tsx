@@ -1,4 +1,9 @@
+'use client';
+
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import { usePrefersReducedMotion } from '@/lib/usePrefersReducedMotion';
 
 const links = [
   { href: '#work', label: 'Work' },
@@ -6,6 +11,9 @@ const links = [
   { href: '/aymen-khatrani-cv.pdf', label: 'CV', external: true },
   { href: 'mailto:aymen.khatrani@polytech-lille.net', label: 'Contact', external: true },
 ];
+
+// Section ids tracked for the active-link indicator, in document order.
+const sectionIds = ['work', 'about', 'experience'];
 
 const socials = [
   {
@@ -45,8 +53,50 @@ const socials = [
 ];
 
 export default function Navbar() {
+  const reduced = usePrefersReducedMotion();
+  const [scrolled, setScrolled] = useState(false);
+  const [active, setActive] = useState<string | null>(null);
+
+  // Progressive backdrop: the nav background fades in once the page is scrolled.
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // Active-section indicator driven by IntersectionObserver.
+  useEffect(() => {
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null);
+    if (sections.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]) setActive(visible[0].target.id);
+      },
+      { rootMargin: '-45% 0px -45% 0px', threshold: [0, 0.25, 0.5, 1] },
+    );
+
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <header className="fixed inset-x-0 top-0 z-50">
+    <motion.header
+      initial={{ y: reduced ? 0 : -24, opacity: reduced ? 1 : 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: reduced ? 0.01 : 0.7, ease: [0.22, 1, 0.36, 1] }}
+      className={`fixed inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter,border-color] duration-500 ease-smooth ${
+        scrolled
+          ? 'border-b border-bone-100/10 bg-ink-950/60 backdrop-blur-md'
+          : 'border-b border-transparent bg-transparent'
+      }`}
+    >
       <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-5 sm:px-10 sm:py-6">
         <Link
           href="/"
@@ -58,15 +108,16 @@ export default function Navbar() {
 
         <nav aria-label="Primary" className="hidden md:block">
           <ul className="flex items-center gap-8">
-            {links.map((l) =>
-              l.external ? (
+            {links.map((l) => {
+              const isActive = !l.external && active === l.href.replace('#', '');
+              return l.external ? (
                 <li key={l.href}>
                   <a
                     href={l.href}
                     {...(l.href.startsWith('mailto:')
                       ? {}
                       : { target: '_blank', rel: 'noreferrer noopener' })}
-                    className="font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/60 transition-colors hover:text-bone-50"
+                    className="link-underline font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/60 transition-colors hover:text-bone-50"
                   >
                     {l.label}
                   </a>
@@ -75,13 +126,17 @@ export default function Navbar() {
                 <li key={l.href}>
                   <Link
                     href={l.href}
-                    className="font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/60 transition-colors hover:text-bone-50"
+                    data-active={isActive}
+                    aria-current={isActive ? 'true' : undefined}
+                    className={`link-underline font-mono text-[11px] uppercase tracking-[0.22em] transition-colors hover:text-bone-50 ${
+                      isActive ? 'text-bone-50' : 'text-bone-100/60'
+                    }`}
                   >
                     {l.label}
                   </Link>
                 </li>
-              ),
-            )}
+              );
+            })}
           </ul>
         </nav>
 
@@ -109,6 +164,6 @@ export default function Navbar() {
           </a>
         </div>
       </div>
-    </header>
+    </motion.header>
   );
 }

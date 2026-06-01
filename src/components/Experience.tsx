@@ -1,6 +1,7 @@
 'use client';
 
 import { motion, type Variants } from 'framer-motion';
+import SectionDivider from './SectionDivider';
 
 const item: Variants = {
   hidden: { opacity: 0, y: 16 },
@@ -84,8 +85,9 @@ export default function ExperienceSection() {
     >
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-ink-950" />
-        <div className="absolute left-1/2 top-0 h-px w-[60%] -translate-x-1/2 bg-gradient-to-r from-transparent via-bone-100/15 to-transparent" />
       </div>
+
+      <SectionDivider />
 
       <motion.div
         initial="hidden"

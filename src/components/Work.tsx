@@ -2,6 +2,8 @@
 
 import Link from 'next/link';
 import { motion, type Variants } from 'framer-motion';
+import SectionDivider from './SectionDivider';
+import { usePrefersReducedMotion } from '@/lib/usePrefersReducedMotion';
 
 const item: Variants = {
   hidden: { opacity: 0, y: 16 },
@@ -74,6 +76,8 @@ const projects: Project[] = [
 ];
 
 export default function Work() {
+  const reduced = usePrefersReducedMotion();
+
   return (
     <section
       id="work"
@@ -82,8 +86,9 @@ export default function Work() {
     >
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-ink-950" />
-        <div className="absolute left-1/2 top-0 h-px w-[60%] -translate-x-1/2 bg-gradient-to-r from-transparent via-bone-100/15 to-transparent" />
       </div>
+
+      <SectionDivider />
 
       <motion.div
         initial="hidden"
@@ -119,7 +124,12 @@ export default function Work() {
 
         <ul className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
           {projects.map((p, i) => (
-            <motion.li key={p.title} variants={item}>
+            <motion.li
+              key={p.title}
+              variants={item}
+              whileHover={reduced ? undefined : { scale: 1.03 }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            >
               <ProjectCard project={p} index={i + 1} />
             </motion.li>
           ))}
@@ -143,7 +153,7 @@ function ProjectCard({
     project.status.kind !== 'soon' ? project.status.href : undefined;
 
   const cardClasses =
-    'group relative flex h-full flex-col justify-between gap-10 rounded-2xl border border-bone-100/10 bg-ink-900/40 p-7 transition-all duration-500 ease-smooth hover:border-bone-100/25 hover:bg-ink-900/70 sm:p-9';
+    'group relative flex h-full flex-col justify-between gap-10 rounded-2xl border border-bone-100/10 bg-ink-900/40 p-7 transition-all duration-500 ease-smooth hover:border-bone-100/25 hover:bg-ink-900/70 hover:shadow-2xl hover:shadow-black/40 sm:p-9';
 
   const body = (
     <>

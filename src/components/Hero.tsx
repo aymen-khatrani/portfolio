@@ -90,7 +90,7 @@ export default function Hero() {
               target="_blank"
               rel="noreferrer noopener"
               download
-              className="group inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/55 transition-colors hover:text-bone-50"
+              className="link-underline group inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/55 transition-colors hover:text-bone-50"
             >
               <svg
                 viewBox="0 0 16 16"
