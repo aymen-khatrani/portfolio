@@ -1,6 +1,7 @@
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
 import About from '@/components/About';
+import Work from '@/components/Work';
 import ExperienceSection from '@/components/Experience';
 
 export default function Page() {
@@ -9,6 +10,7 @@ export default function Page() {
       <Navbar />
       <Hero />
       <About />
+      <Work />
       <ExperienceSection />
     </main>
   );

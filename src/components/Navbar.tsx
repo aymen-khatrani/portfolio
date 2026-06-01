@@ -4,7 +4,7 @@ const links = [
   { href: '#work', label: 'Work' },
   { href: '#about', label: 'About' },
   { href: '/aymen-khatrani-cv.pdf', label: 'CV', external: true },
-  { href: '#contact', label: 'Contact' },
+  { href: 'mailto:aymen.khatrani@polytech-lille.net', label: 'Contact', external: true },
 ];
 
 const socials = [
@@ -63,8 +63,9 @@ export default function Navbar() {
                 <li key={l.href}>
                   <a
                     href={l.href}
-                    target="_blank"
-                    rel="noreferrer noopener"
+                    {...(l.href.startsWith('mailto:')
+                      ? {}
+                      : { target: '_blank', rel: 'noreferrer noopener' })}
                     className="font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/60 transition-colors hover:text-bone-50"
                   >
                     {l.label}

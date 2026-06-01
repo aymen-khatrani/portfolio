@@ -78,7 +78,7 @@ const experiences: Experience[] = [
 export default function ExperienceSection() {
   return (
     <section
-      id="work"
+      id="experience"
       aria-labelledby="experience-title"
       className="relative isolate scroll-mt-24 px-6 py-28 sm:px-10 sm:py-32 lg:px-16"
     >
@@ -101,7 +101,7 @@ export default function ExperienceSection() {
           <div>
             <div className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/55">
               <span className="h-px w-8 bg-bone-100/30" />
-              03 — Experience
+              04 — Experience
             </div>
             <h2
               id="experience-title"
