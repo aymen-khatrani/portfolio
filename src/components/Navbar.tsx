@@ -3,6 +3,7 @@ import Link from 'next/link';
 const links = [
   { href: '#work', label: 'Work' },
   { href: '#about', label: 'About' },
+  { href: '/aymen-khatrani-cv.pdf', label: 'CV', external: true },
   { href: '#contact', label: 'Contact' },
 ];
 
@@ -57,16 +58,29 @@ export default function Navbar() {
 
         <nav aria-label="Primary" className="hidden md:block">
           <ul className="flex items-center gap-8">
-            {links.map((l) => (
-              <li key={l.href}>
-                <Link
-                  href={l.href}
-                  className="font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/60 transition-colors hover:text-bone-50"
-                >
-                  {l.label}
-                </Link>
-              </li>
-            ))}
+            {links.map((l) =>
+              l.external ? (
+                <li key={l.href}>
+                  <a
+                    href={l.href}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/60 transition-colors hover:text-bone-50"
+                  >
+                    {l.label}
+                  </a>
+                </li>
+              ) : (
+                <li key={l.href}>
+                  <Link
+                    href={l.href}
+                    className="font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/60 transition-colors hover:text-bone-50"
+                  >
+                    {l.label}
+                  </Link>
+                </li>
+              ),
+            )}
           </ul>
         </nav>
 

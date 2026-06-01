@@ -84,6 +84,32 @@ export default function Hero() {
             </CTAButton>
           </motion.div>
 
+          <motion.div variants={item} className="mt-5">
+            <a
+              href="/aymen-khatrani-cv.pdf"
+              target="_blank"
+              rel="noreferrer noopener"
+              download
+              className="group inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/55 transition-colors hover:text-bone-50"
+            >
+              <svg
+                viewBox="0 0 16 16"
+                width="12"
+                height="12"
+                aria-hidden="true"
+                className="block shrink-0 transition-transform duration-500 ease-smooth group-hover:translate-y-0.5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.25"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M8 2v10M4 8l4 4 4-4M2.5 14h11" />
+              </svg>
+              Télécharger le CV <span className="text-bone-100/30">· PDF · 376 KB</span>
+            </a>
+          </motion.div>
+
           <motion.dl
             variants={item}
             className="mt-14 grid max-w-md grid-cols-2 gap-x-8 gap-y-4 border-t border-bone-100/10 pt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/55"
