@@ -61,11 +61,6 @@ export default function About() {
       aria-labelledby="about-title"
       className="relative isolate scroll-mt-24 px-6 py-28 sm:px-10 sm:py-32 lg:px-16"
     >
-      {/* Background continuity with the hero */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-gradient-to-b from-ink-950 via-ink-900 to-ink-950" />
-      </div>
-
       <SectionDivider />
 
       <div className="mx-auto max-w-[1400px]">

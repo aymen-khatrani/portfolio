@@ -204,7 +204,7 @@ export default function GridBackground() {
     <canvas
       ref={canvasRef}
       aria-hidden
-      className="pointer-events-none fixed inset-0 z-40"
+      className="pointer-events-none fixed inset-0 -z-10"
       style={{
         maskImage:
           'radial-gradient(ellipse 85% 75% at 50% 45%, rgba(0,0,0,1) 40%, transparent 92%)',

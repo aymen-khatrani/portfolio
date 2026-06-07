@@ -216,10 +216,6 @@ body {
 [data-theme='light'] .scanlines {
   display: none;
 }
-/* Collapse the About section's vertical gradient to the flat canvas. */
-[data-theme='light'] #about .bg-gradient-to-b {
-  background-image: none;
-}
 
 /* Inline display emphasis — "yellow marker word" / "mint highlight" from the
    Dayos system. `.accent-mark` is theme-aware: a quiet bronze italic in dark
