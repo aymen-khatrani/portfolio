@@ -43,10 +43,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     <div
       onClick={() => (isCenter ? onOpen(project.status) : handleMove(position))}
       className={cn(
-        'absolute left-1/2 top-1/2 flex cursor-pointer flex-col border p-7 transition-all duration-500 ease-smooth sm:p-8',
+        'group absolute left-1/2 top-1/2 flex cursor-pointer flex-col border p-7 transition-all duration-500 ease-smooth sm:p-8',
         isCenter
           ? 'z-10 border-bone-50 bg-bone-50 text-ink-950'
-          : 'z-0 border-bone-100/15 bg-ink-900/70 text-bone-100 hover:border-bone-100/35',
+          : 'z-0 border-bone-100/15 bg-ink-900/70 text-bone-100 hover:border-moss-300/50 hover:[--card-lift:-12px] hover:[--card-scale:1.03]',
       )}
       style={{
         width: cardSize,
@@ -57,6 +57,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           translate(-50%, -50%)
           translateX(${(cardSize / 1.5) * position}px)
           translateY(${isCenter ? -65 : position % 2 ? 15 : -15}px)
+          translateY(var(--card-lift, 0px))
+          scale(var(--card-scale, 1))
           rotate(${isCenter ? 0 : position % 2 ? 2.5 : -2.5}deg)
         `,
         boxShadow: isCenter
@@ -64,6 +66,18 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           : '0px 0px 0px 0px transparent',
       }}
     >
+      {/* soft accent wash that fades in on hover (non-center cards) */}
+      {!isCenter && (
+        <span
+          aria-hidden
+          className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 ease-smooth group-hover:opacity-100"
+          style={{
+            background:
+              'radial-gradient(120% 90% at 50% 0%, rgb(var(--moss-300) / 0.14), transparent 60%)',
+          }}
+        />
+      )}
+
       {/* diagonal hairline cutting the clipped corner */}
       <span
         aria-hidden
@@ -162,7 +176,7 @@ function CtaLabel({
   return (
     <span className={base}>
       {status.kind === 'case-study' ? 'Lire le case study' : 'Code sur GitHub'}
-      <ArrowUpRight className="h-3 w-3" />
+      <ArrowUpRight className="h-3 w-3 transition-transform duration-500 ease-smooth group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
     </span>
   );
 }

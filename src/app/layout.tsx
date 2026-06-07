@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Barlow_Condensed, Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import GridBackground from '@/components/GridBackground';
+import MotionProvider from '@/components/MotionProvider';
 
 // Swiss-editorial display face: an ultra-condensed grotesque set at 700 with a
 // 0.90 line-height stacks headlines into monumental blocks (see globals.css).
@@ -57,7 +58,7 @@ export default function RootLayout({
       </head>
       <body className="bg-ink-950 text-bone-100 antialiased selection:bg-moss-500/40 selection:text-bone-50">
         <GridBackground />
-        {children}
+        <MotionProvider>{children}</MotionProvider>
       </body>
     </html>
   );

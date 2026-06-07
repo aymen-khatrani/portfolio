@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useSpring } from 'framer-motion';
 import { usePrefersReducedMotion } from '@/lib/usePrefersReducedMotion';
 import ThemeToggle from './ThemeToggle';
 
@@ -59,6 +59,14 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState<string | null>(null);
 
+  // Smoothed page-scroll progress, drawn as a hairline inside the pill.
+  const { scrollYProgress } = useScroll();
+  const progress = useSpring(scrollYProgress, {
+    stiffness: 120,
+    damping: 30,
+    mass: 0.3,
+  });
+
   // Progressive backdrop: the nav background fades in once the page is scrolled.
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -96,12 +104,18 @@ export default function Navbar() {
       className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6 sm:pt-5"
     >
       <div
-        className={`mx-auto flex max-w-[1320px] items-center justify-between gap-4 rounded-full border px-5 py-3 backdrop-blur-md transition-[background-color,border-color] duration-500 ease-smooth sm:px-7 ${
+        className={`relative mx-auto flex max-w-[1320px] items-center justify-between gap-4 rounded-full border px-5 py-3 backdrop-blur-md transition-[background-color,border-color] duration-500 ease-smooth sm:px-7 ${
           scrolled
             ? 'border-ink-700 bg-ink-900/90'
             : 'border-ink-700/60 bg-ink-900/70'
         }`}
       >
+        {/* Scroll-progress hairline — tracks reading position, never autonomous. */}
+        <motion.span
+          aria-hidden
+          style={{ scaleX: reduced ? scrollYProgress : progress }}
+          className="pointer-events-none absolute inset-x-6 bottom-0 h-px origin-left bg-gradient-to-r from-transparent via-moss-300/60 to-transparent"
+        />
         <Link
           href="/"
           className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/80 transition-colors hover:text-bone-50"

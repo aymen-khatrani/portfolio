@@ -1,21 +1,9 @@
 'use client';
 
-import { motion, type Variants } from 'framer-motion';
+import { motion } from 'framer-motion';
 import SectionDivider from './SectionDivider';
-
-const item: Variants = {
-  hidden: { opacity: 0, y: 16 },
-  shown: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] },
-  },
-};
-
-const stagger: Variants = {
-  hidden: {},
-  shown: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
-};
+import SectionHeading from './SectionHeading';
+import { rise, staggerContainer, viewportOnce } from '@/lib/motion';
 
 type Experience = {
   date: string;
@@ -89,42 +77,30 @@ export default function ExperienceSection() {
 
       <SectionDivider />
 
-      <motion.div
-        initial="hidden"
-        whileInView="shown"
-        viewport={{ once: true, margin: '-15% 0px' }}
-        variants={stagger}
-        className="mx-auto max-w-[1400px]"
-      >
-        <motion.div
-          variants={item}
-          className="mb-14 flex flex-col gap-6 border-b border-bone-100/10 pb-8 md:flex-row md:items-end md:justify-between"
+      <div className="mx-auto max-w-[1400px]">
+        <SectionHeading
+          index="03"
+          kicker="Expériences"
+          titleId="experience-title"
+          titleClassName="max-w-[18ch]"
+          meta="Antéchronologique · 2026 → 2022"
         >
-          <div>
-            <div className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/55">
-              <span className="h-px w-8 bg-bone-100/30" />
-              03 — Expériences
-            </div>
-            <h2
-              id="experience-title"
-              className="mt-5 max-w-[18ch] font-display text-[clamp(2rem,5vw,4rem)] leading-[0.98] tracking-tightest text-bone-50"
-            >
-              Cinq postes,{' '}
-              <span className="accent-mark">une trajectoire data.</span>
-            </h2>
-          </div>
+          Cinq postes,{' '}
+          <span className="accent-mark">une trajectoire data.</span>
+        </SectionHeading>
 
-          <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/55">
-            Antéchronologique · 2026 → 2022
-          </p>
-        </motion.div>
-
-        <ul className="divide-y divide-bone-100/10">
+        <motion.ul
+          initial="hidden"
+          whileInView="shown"
+          viewport={viewportOnce}
+          variants={staggerContainer(0.1)}
+          className="divide-y divide-bone-100/10"
+        >
           {experiences.map((exp) => (
             <motion.li
               key={`${exp.company}-${exp.date}`}
-              variants={item}
-              className="group grid grid-cols-1 gap-y-3 py-8 md:grid-cols-[200px_1fr] md:gap-x-10 md:py-10"
+              variants={rise}
+              className="group grid grid-cols-1 gap-y-3 py-8 transition-transform duration-500 ease-smooth md:grid-cols-[200px_1fr] md:gap-x-10 md:py-10 md:hover:translate-x-1.5"
             >
               {/* Left: date + status */}
               <div className="flex flex-col gap-2">
@@ -143,7 +119,12 @@ export default function ExperienceSection() {
               </div>
 
               {/* Right: content */}
-              <div>
+              <div className="relative">
+                {/* accent bar that grows on hover — sober depth cue */}
+                <span
+                  aria-hidden
+                  className="absolute -left-5 top-1.5 hidden h-[calc(100%-0.375rem)] w-px origin-top scale-y-0 bg-moss-300/50 transition-transform duration-500 ease-smooth group-hover:scale-y-100 md:block"
+                />
                 <h3 className="text-balance text-xl leading-snug text-bone-50 sm:text-2xl">
                   {exp.role}
                 </h3>
@@ -160,7 +141,7 @@ export default function ExperienceSection() {
                   {exp.tags.map((t) => (
                     <li
                       key={t}
-                      className="rounded-full border border-bone-100/15 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-bone-100/65"
+                      className="rounded-full border border-bone-100/15 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-bone-100/65 transition-colors duration-500 group-hover:border-bone-100/30"
                     >
                       {t}
                     </li>
@@ -169,8 +150,8 @@ export default function ExperienceSection() {
               </div>
             </motion.li>
           ))}
-        </ul>
-      </motion.div>
+        </motion.ul>
+      </div>
     </section>
   );
 }

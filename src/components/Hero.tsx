@@ -1,31 +1,54 @@
 'use client';
 
-import { motion, type Variants } from 'framer-motion';
+import { useRef } from 'react';
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+  type Variants,
+} from 'framer-motion';
 import CTAButton from './CTAButton';
 import ThreeDImageHero from './ThreeDImageHero';
+import {
+  clipRise,
+  fade,
+  rise,
+  riseSoft,
+  scaleIn,
+  staggerContainer,
+  EASE_OUT_BACK,
+} from '@/lib/motion';
 
-const container: Variants = {
-  hidden: {},
-  shown: {
-    transition: {
-      staggerChildren: 0.08,
-      delayChildren: 0.15,
-    },
-  },
-};
-
-const item: Variants = {
-  hidden: { opacity: 0, y: 14 },
+// CTAs land with a touch of overshoot — the one "sporty" beat of the entrance.
+const ctas: Variants = {
+  hidden: { opacity: 0, y: 18 },
   shown: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] },
+    transition: { duration: 0.7, ease: EASE_OUT_BACK },
   },
 };
 
 export default function Hero() {
+  const reduced = useReducedMotion();
+  const heroRef = useRef<HTMLElement>(null);
+
+  // Subtle scroll parallax: the hero drifts up and dims as you leave it, so the
+  // page feels layered rather than a flat block. Disabled under reduced-motion.
+  const { scrollYProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  });
+  const contentY = useTransform(scrollYProgress, [0, 1], [0, -56]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.85], [1, 0.3]);
+  const imageY = useTransform(scrollYProgress, [0, 1], [0, -96]);
+
   return (
-    <section className="noise relative isolate flex min-h-screen w-full items-center px-6 pb-16 pt-32 sm:px-10 sm:pt-36 lg:px-16">
+    <section
+      ref={heroRef}
+      className="noise relative isolate flex min-h-screen w-full items-center px-6 pb-16 pt-32 sm:px-10 sm:pt-36 lg:px-16"
+    >
       {/* Background ambience */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         <div className="hero-ambient absolute inset-0" />
@@ -36,13 +59,16 @@ export default function Hero() {
       <motion.div
         initial="hidden"
         animate="shown"
-        variants={container}
+        variants={staggerContainer(0.12, 0.1)}
         className="mx-auto grid w-full max-w-[1400px] grid-cols-1 items-center gap-y-14 lg:grid-cols-[1.05fr_1fr] lg:gap-x-20"
       >
         {/* Text column */}
-        <div className="order-2 lg:order-1">
+        <motion.div
+          style={reduced ? undefined : { y: contentY, opacity: contentOpacity }}
+          className="order-2 lg:order-1"
+        >
           <motion.div
-            variants={item}
+            variants={riseSoft}
             className="mb-8 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/60"
           >
             <span className="h-px w-8 bg-bone-100/30" />
@@ -50,7 +76,7 @@ export default function Hero() {
           </motion.div>
 
           <motion.h1
-            variants={item}
+            variants={reduced ? fade : clipRise}
             className="font-display text-[clamp(3rem,8vw,7rem)] leading-[0.92] tracking-tightest text-bone-50"
           >
             Aymen
@@ -59,14 +85,14 @@ export default function Hero() {
           </motion.h1>
 
           <motion.p
-            variants={item}
+            variants={riseSoft}
             className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/55"
           >
             Data Scientist · Élève-ingénieur Polytech Lille — ISIA
           </motion.p>
 
           <motion.p
-            variants={item}
+            variants={riseSoft}
             className="mt-6 max-w-[44ch] text-balance text-lg leading-relaxed text-bone-100/75 sm:text-xl"
           >
             Data science appliquée à la finance et à l’assurance. Scoring
@@ -75,7 +101,7 @@ export default function Hero() {
           </motion.p>
 
           <motion.div
-            variants={item}
+            variants={ctas}
             className="mt-10 flex flex-wrap items-center gap-3"
           >
             <CTAButton href="#work">Voir mes projets</CTAButton>
@@ -84,7 +110,7 @@ export default function Hero() {
             </CTAButton>
           </motion.div>
 
-          <motion.div variants={item} className="mt-5">
+          <motion.div variants={riseSoft} className="mt-5">
             <a
               href="/aymen-khatrani-cv.pdf"
               target="_blank"
@@ -111,7 +137,7 @@ export default function Hero() {
           </motion.div>
 
           <motion.dl
-            variants={item}
+            variants={rise}
             className="mt-14 grid max-w-md grid-cols-2 gap-x-8 gap-y-4 border-t border-bone-100/10 pt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/55"
           >
             <div>
@@ -137,14 +163,20 @@ export default function Hero() {
               <dd className="mt-1 text-bone-100/80">Polytech Lille · 4A</dd>
             </div>
           </motion.dl>
-        </div>
+        </motion.div>
 
-        {/* Image column */}
-        <motion.div variants={item} className="order-1 lg:order-2">
-          <ThreeDImageHero
-            src="/acceuil-photo.png"
-            alt="Portrait éditorial — Aymen Khatrani"
-          />
+        {/* Image column — parallax wrapper (outer) + reveal (inner) kept separate
+            so the scroll MotionValue and the scaleIn entrance don't fight over y. */}
+        <motion.div
+          style={reduced ? undefined : { y: imageY }}
+          className="order-1 lg:order-2"
+        >
+          <motion.div variants={scaleIn}>
+            <ThreeDImageHero
+              src="/acceuil-photo.png"
+              alt="Portrait éditorial — Aymen Khatrani"
+            />
+          </motion.div>
         </motion.div>
       </motion.div>
 
