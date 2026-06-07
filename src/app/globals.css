@@ -2,8 +2,142 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Quiet-luxury theme system ──────────────────────────────────────────────
+   "Quiet luxury" warm-neutral identity (sable / taupe / espresso) with a bronze
+   primary and a discreet olive accent. Two layers:
+
+   1. Scale tokens (--ink/--bone/--moss) — stored as space-separated RGB triplets
+      so Tailwind's `<alpha-value>` keeps working (bg-ink-950, text-bone-100/60).
+        · ink  = surfaces (background → elevated)
+        · bone = foreground (text scale)
+        · moss = accent (now bronze, kept the name to avoid touching every class)
+   2. Semantic tokens (--background, --text-primary, --primary, …) — HEX, for new
+      UI (cards, buttons, badges, contact form, footer) via Tailwind colors
+      bg-background, text-text-primary, bg-primary, border-border, etc.
+
+   The default :root is the dark theme; [data-theme='light'] is a re-toned light
+   theme (surfaces, borders, accents and states are re-balanced per mode, not
+   just inverted). Contrast targets: body text ≥ 4.5:1, large/UI ≥ 3:1. */
 :root {
   color-scheme: dark;
+
+  /* — scale: surfaces (warm charcoal) — */
+  --ink-950: 26 23 19;     /* #1A1713  background        */
+  --ink-900: 34 30 24;     /* #221E18  surface           */
+  --ink-800: 44 40 32;     /* #2C2820  surface elevated   */
+  --ink-700: 58 51 40;     /* #3A3328  border             */
+  --ink-600: 74 66 51;     /* #4A4233  border strong      */
+  --ink-500: 107 97 73;    /* #6B6149  mid                */
+
+  /* — scale: foreground (warm bone) — */
+  --bone-50:  242 234 218; /* #F2EADA  text primary       */
+  --bone-100: 226 216 196; /* #E2D8C4  text / body        */
+  --bone-200: 194 182 160; /* #C2B6A0  text secondary     */
+  --bone-300: 156 144 122; /* #9C907A  text muted         */
+
+  /* — scale: accent (bronze) — */
+  --moss-200: 221 185 140; /* #DDB98C */
+  --moss-300: 199 154 106; /* #C79A6A  primary / accent dot */
+  --moss-400: 181 137 79;  /* #B5894F */
+  --moss-500: 154 123 79;  /* #9A7B4F  selection           */
+  --moss-600: 126 101 64;  /* #7E6540 */
+  --moss-700: 74 59 38;    /* #4A3B26 */
+  --moss-800: 52 41 26;    /* #34291A */
+  --moss-900: 36 28 18;    /* #241C12 */
+
+  /* — semantic tokens (dark) — */
+  --background: #1A1713;
+  --surface: #221E18;
+  --surface-elevated: #2C2820;
+  --card: #24201A;
+  --border: #3A3328;
+  --border-strong: #4A4233;
+  --text-primary: #EFE7D6;
+  --text-secondary: #BFB39C;
+  --text-muted: #968B73;
+  --primary: #C79A6A;
+  --primary-hover: #D6AC7E;
+  --primary-contrast: #1A1713;
+  --accent: #93A07B;
+  --accent-soft: #2C3325;
+  --success: #8FB07E;
+  --warning: #D6A35A;
+  --error: #D08577;
+  --focus-ring: #C79A6A;
+
+  /* Hero ambient radial gradient (dark). */
+  --hero-1: #241D14;
+  --hero-2: #1A1713;
+  --hero-3: #120F0B;
+
+  /* Page dot-field colour (GridBackground) — warm bone glow on dark. */
+  --grid-dot: 226 216 196;
+
+  /* Swiss editorial marker accents — used the same in both themes. */
+  --marker-yellow: #fff100;
+  --marker-mint: #d1ffca;
+}
+
+/* ── Light theme — "Dayos" Swiss editorial spread ───────────────────────────
+   Cool-gray paper (#e5e7eb) holding white cards and pure-black ink type. The
+   5-level surface stack is canvas → white → mist → mint → yellow. Colour is
+   almost absent from chrome: a single mint wash and a single electric yellow,
+   used surgically. Surfaces are flat (no shadows, no gradients). The ink/bone/
+   moss scales are remapped so every existing component inherits the system. */
+:root[data-theme='light'] {
+  color-scheme: light;
+
+  /* — scale: surfaces (cool gray → white) — */
+  --ink-950: 229 231 235; /* #E5E7EB  canvas / page ground */
+  --ink-900: 255 255 255; /* #FFFFFF  card / nav pill       */
+  --ink-800: 243 243 243; /* #F3F3F3  subtle secondary      */
+  --ink-700: 229 231 235; /* #E5E7EB  hairline divider      */
+  --ink-600: 209 213 219; /* #D1D5DB  border strong         */
+  --ink-500: 151 151 151; /* #979797  steel mid             */
+
+  /* — scale: foreground (ink black → steel) — */
+  --bone-50:  0 0 0;       /* #000000  primary headings/text */
+  --bone-100: 0 0 0;       /* #000000  body (alpha → grays)  */
+  --bone-200: 68 68 68;    /* #444444  graphite secondary    */
+  --bone-300: 151 151 151; /* #979797  steel muted           */
+
+  /* — scale: accent (mint pulse) — the system's single chromatic moment — */
+  --moss-200: 209 255 202; /* #D1FFCA  mint wash             */
+  --moss-300: 132 204 138; /* #84CC8A  readable mint (dots)  */
+  --moss-400: 110 184 118; /* #6EB876 */
+  --moss-500: 209 255 202; /* #D1FFCA  selection = mint      */
+  --moss-600: 90 160 100;  /* #5AA064 */
+  --moss-700: 209 255 202; /* #D1FFCA */
+  --moss-800: 243 243 243; /* #F3F3F3 */
+  --moss-900: 229 231 235; /* #E5E7EB */
+
+  /* — semantic tokens (light) — flat, monochrome chrome — */
+  --background: #E5E7EB;
+  --surface: #FFFFFF;
+  --surface-elevated: #FFFFFF;
+  --card: #FFFFFF;
+  --border: #E5E7EB;
+  --border-strong: #D1D5DB;
+  --text-primary: #000000;
+  --text-secondary: #444444;
+  --text-muted: #979797;
+  --primary: #000000;          /* black is the only "CTA" surface */
+  --primary-hover: #1A1A1A;
+  --primary-contrast: #FFFFFF;
+  --accent: #5AA064;
+  --accent-soft: #D1FFCA;
+  --success: #3F8F52;
+  --warning: #8A5E1F;
+  --error: #B23B30;
+  --focus-ring: #000000;
+
+  /* Flat canvas — collapse the hero radial to a single gray ground. */
+  --hero-1: #E5E7EB;
+  --hero-2: #E5E7EB;
+  --hero-3: #E5E7EB;
+
+  /* Faint steel dot-field on the gray paper. */
+  --grid-dot: 156 158 163;
 }
 
 html {
@@ -19,7 +153,24 @@ body {
   font-feature-settings: 'ss01', 'cv11';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #0a0c0b;
+  background-color: rgb(var(--ink-950));
+  transition: background-color 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* The condensed display face only ships 600/700 here; lock headlines to 700 so
+   they render at the intended monumental weight (it has no 400 master). */
+.font-display {
+  font-weight: 700;
+}
+
+/* Hero ambient radial — theme-aware, replaces the hardcoded inline gradient. */
+.hero-ambient {
+  background: radial-gradient(
+    ellipse 120% 80% at 50% 30%,
+    var(--hero-1) 0%,
+    var(--hero-2) 60%,
+    var(--hero-3) 100%
+  );
 }
 
 /* Subtle film-grain noise — applied as a fixed overlay on the page. */
@@ -37,8 +188,8 @@ body {
 /* Hairline editorial grid behind the hero. */
 .editorial-grid {
   background-image:
-    linear-gradient(to right, rgba(236, 233, 221, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(236, 233, 221, 0.04) 1px, transparent 1px);
+    linear-gradient(to right, rgb(var(--bone-100) / 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(var(--bone-100) / 0.04) 1px, transparent 1px);
   background-size: 96px 96px;
   background-position: center;
   mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(0, 0, 0, 0.9), transparent 80%);
@@ -48,11 +199,58 @@ body {
 .scanlines {
   background-image: repeating-linear-gradient(
     to bottom,
-    rgba(236, 233, 221, 0.03) 0px,
-    rgba(236, 233, 221, 0.03) 1px,
+    rgb(var(--bone-100) / 0.03) 0px,
+    rgb(var(--bone-100) / 0.03) 1px,
     transparent 1px,
     transparent 6px
   );
+}
+
+/* ── Swiss-editorial flat overrides (light theme only) ──────────────────────
+   The dark system layers texture (grain, hairline grid, scanlines); the Swiss
+   spread is clean type on flat paper, so neutralise those in light. */
+[data-theme='light'] .noise::before {
+  opacity: 0;
+}
+[data-theme='light'] .editorial-grid,
+[data-theme='light'] .scanlines {
+  display: none;
+}
+/* Collapse the About section's vertical gradient to the flat canvas. */
+[data-theme='light'] #about .bg-gradient-to-b {
+  background-image: none;
+}
+
+/* Inline display emphasis — "yellow marker word" / "mint highlight" from the
+   Dayos system. `.accent-mark` is theme-aware: a quiet bronze italic in dark
+   (matching the existing identity) and a mint marker-swipe on light paper. */
+.accent-mark {
+  color: rgb(var(--bone-100) / 0.7);
+  font-style: italic;
+}
+[data-theme='light'] .accent-mark {
+  color: #000;
+  font-style: normal;
+  background: var(--marker-mint);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding: 0 0.12em;
+  border-radius: 2px;
+}
+
+.marker-yellow,
+.marker-mint {
+  color: #000;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding: 0 0.12em;
+  border-radius: 2px;
+}
+.marker-yellow {
+  background: var(--marker-yellow);
+}
+.marker-mint {
+  background: var(--marker-mint);
 }
 
 /* Perspective container for the 3D card stage. */

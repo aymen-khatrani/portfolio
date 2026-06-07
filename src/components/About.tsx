@@ -102,9 +102,7 @@ export default function About() {
               className="mt-5 max-w-[16ch] font-display text-[clamp(2rem,5vw,4rem)] leading-[0.98] tracking-tightest text-bone-50"
             >
               Élève-ingénieur,{' '}
-              <span className="italic text-bone-100/70">
-                data scientist en formation.
-              </span>
+              <span className="accent-mark">data scientist en formation.</span>
             </h2>
           </div>
 

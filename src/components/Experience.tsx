@@ -110,9 +110,7 @@ export default function ExperienceSection() {
               className="mt-5 max-w-[18ch] font-display text-[clamp(2rem,5vw,4rem)] leading-[0.98] tracking-tightest text-bone-50"
             >
               Cinq postes,{' '}
-              <span className="italic text-bone-100/70">
-                une trajectoire data.
-              </span>
+              <span className="accent-mark">une trajectoire data.</span>
             </h2>
           </div>
 

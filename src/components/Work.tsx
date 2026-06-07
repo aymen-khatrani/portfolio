@@ -1,9 +1,11 @@
 'use client';
 
-import Link from 'next/link';
 import { motion, type Variants } from 'framer-motion';
 import SectionDivider from './SectionDivider';
-import { usePrefersReducedMotion } from '@/lib/usePrefersReducedMotion';
+import {
+  StaggerProjects,
+  type StaggerProject,
+} from './ui/stagger-projects';
 
 const item: Variants = {
   hidden: { opacity: 0, y: 16 },
@@ -19,22 +21,9 @@ const stagger: Variants = {
   shown: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
 };
 
-type ProjectStatus =
-  | { kind: 'case-study'; href: string }
-  | { kind: 'github'; href: string }
-  | { kind: 'soon' };
-
-type Project = {
-  year: string;
-  category: string;
-  title: string;
-  description: string;
-  tags: string[];
-  status: ProjectStatus;
-};
-
-const projects: Project[] = [
+const projects: StaggerProject[] = [
   {
+    tempId: 0,
     year: '2025',
     category: 'Software · OOP',
     title: 'CKOALA — Moteur de classification taxonomique',
@@ -47,6 +36,7 @@ const projects: Project[] = [
     },
   },
   {
+    tempId: 1,
     year: '2024',
     category: 'Data Science · Scoring',
     title: 'Scoring d’appétence crédit — Dataset Cofidis',
@@ -56,6 +46,7 @@ const projects: Project[] = [
     status: { kind: 'soon' },
   },
   {
+    tempId: 2,
     year: '2024',
     category: 'Data Eng · SQL',
     title: 'Analytique SQL avancée — Base e-commerce',
@@ -65,6 +56,7 @@ const projects: Project[] = [
     status: { kind: 'soon' },
   },
   {
+    tempId: 3,
     year: '2024',
     category: 'Data Science · EDA',
     title: 'Analyse EA Sports FC — Profilage et classification',
@@ -76,8 +68,6 @@ const projects: Project[] = [
 ];
 
 export default function Work() {
-  const reduced = usePrefersReducedMotion();
-
   return (
     <section
       id="work"
@@ -99,7 +89,7 @@ export default function Work() {
       >
         <motion.div
           variants={item}
-          className="mb-14 flex flex-col gap-6 border-b border-bone-100/10 pb-8 md:flex-row md:items-end md:justify-between"
+          className="mb-10 flex flex-col gap-6 border-b border-bone-100/10 pb-8 md:flex-row md:items-end md:justify-between"
         >
           <div>
             <div className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/55">
@@ -111,147 +101,19 @@ export default function Work() {
               className="mt-5 max-w-[20ch] font-display text-[clamp(2rem,5vw,4rem)] leading-[0.98] tracking-tightest text-bone-50"
             >
               Quatre projets,{' '}
-              <span className="italic text-bone-100/70">
-                de la conception au scoring.
-              </span>
+              <span className="accent-mark">de la conception au scoring.</span>
             </h2>
           </div>
 
           <p className="max-w-[34ch] font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/55">
-            Études de cas détaillées · plus à venir
+            Cliquez une carte pour la centrer · études de cas détaillées
           </p>
         </motion.div>
 
-        <ul className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
-          {projects.map((p, i) => (
-            <motion.li
-              key={p.title}
-              variants={item}
-              whileHover={reduced ? undefined : { scale: 1.03 }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <ProjectCard project={p} index={i + 1} />
-            </motion.li>
-          ))}
-        </ul>
+        <motion.div variants={item}>
+          <StaggerProjects projects={projects} />
+        </motion.div>
       </motion.div>
     </section>
-  );
-}
-
-function ProjectCard({
-  project,
-  index,
-}: {
-  project: Project;
-  index: number;
-}) {
-  const indexLabel = String(index).padStart(2, '0');
-  const isInternal = project.status.kind === 'case-study';
-  const isExternal = project.status.kind === 'github';
-  const href =
-    project.status.kind !== 'soon' ? project.status.href : undefined;
-
-  const cardClasses =
-    'group relative flex h-full flex-col justify-between gap-10 rounded-2xl border border-bone-100/10 bg-ink-900/40 p-7 transition-all duration-500 ease-smooth hover:border-bone-100/25 hover:bg-ink-900/70 hover:shadow-2xl hover:shadow-black/40 sm:p-9';
-
-  const body = (
-    <>
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/55">
-          {project.year}
-          <span className="text-bone-100/25">·</span>
-          {project.category}
-        </div>
-        <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/35">
-          {indexLabel}
-        </div>
-      </div>
-
-      <div>
-        <h3 className="text-balance font-display text-2xl leading-snug text-bone-50 sm:text-[28px]">
-          {project.title}
-        </h3>
-        <p className="mt-4 max-w-[58ch] text-balance text-base leading-relaxed text-bone-100/70 sm:text-[17px]">
-          {project.description}
-        </p>
-
-        <ul className="mt-6 flex flex-wrap gap-1.5">
-          {project.tags.map((t) => (
-            <li
-              key={t}
-              className="rounded-full border border-bone-100/15 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-bone-100/65"
-            >
-              {t}
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <div className="flex items-center justify-end pt-2">
-        <CtaLabel status={project.status} />
-      </div>
-    </>
-  );
-
-  if (isInternal && href) {
-    return (
-      <Link href={href} className={cardClasses}>
-        {body}
-      </Link>
-    );
-  }
-
-  if (isExternal && href) {
-    return (
-      <a
-        href={href}
-        target="_blank"
-        rel="noreferrer noopener"
-        className={cardClasses}
-      >
-        {body}
-      </a>
-    );
-  }
-
-  return <div className={`${cardClasses} cursor-default`}>{body}</div>;
-}
-
-function CtaLabel({ status }: { status: ProjectStatus }) {
-  if (status.kind === 'case-study') {
-    return (
-      <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/80 transition-colors group-hover:text-bone-50">
-        Lire le case study
-        <svg
-          viewBox="0 0 16 16"
-          width="12"
-          height="12"
-          aria-hidden="true"
-          className="block shrink-0 transition-transform duration-500 ease-smooth group-hover:translate-x-0.5"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.25"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M3 8h10M9 4l4 4-4 4" />
-        </svg>
-      </span>
-    );
-  }
-
-  if (status.kind === 'github') {
-    return (
-      <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/80 transition-colors group-hover:text-bone-50">
-        Code sur GitHub ↗
-      </span>
-    );
-  }
-
-  return (
-    <span className="inline-flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-bone-100/40">
-      Case study bientôt
-    </span>
   );
 }

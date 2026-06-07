@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { usePrefersReducedMotion } from '@/lib/usePrefersReducedMotion';
+import ThemeToggle from './ThemeToggle';
 
 const links = [
   { href: '#about', label: 'À propos' },
@@ -92,13 +93,15 @@ export default function Navbar() {
       initial={{ y: reduced ? 0 : -24, opacity: reduced ? 1 : 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: reduced ? 0.01 : 0.7, ease: [0.22, 1, 0.36, 1] }}
-      className={`fixed inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter,border-color] duration-500 ease-smooth ${
-        scrolled
-          ? 'border-b border-bone-100/10 bg-ink-950/60 backdrop-blur-md'
-          : 'border-b border-transparent bg-transparent'
-      }`}
+      className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6 sm:pt-5"
     >
-      <div className="mx-auto flex max-w-[1400px] items-center justify-between px-6 py-5 sm:px-10 sm:py-6">
+      <div
+        className={`mx-auto flex max-w-[1320px] items-center justify-between gap-4 rounded-full border px-5 py-3 backdrop-blur-md transition-[background-color,border-color] duration-500 ease-smooth sm:px-7 ${
+          scrolled
+            ? 'border-ink-700 bg-ink-900/90'
+            : 'border-ink-700/60 bg-ink-900/70'
+        }`}
+      >
         <Link
           href="/"
           className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/80 transition-colors hover:text-bone-50"
@@ -157,6 +160,7 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
+          <ThemeToggle />
           <a
             href="mailto:aymen.khatrani@polytech-lille.net"
             className="font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/80 transition-colors hover:text-bone-50"

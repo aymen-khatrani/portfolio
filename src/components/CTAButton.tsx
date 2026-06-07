@@ -17,14 +17,16 @@ export default function CTAButton({
   ...rest
 }: Props) {
   const base =
-    'group inline-flex items-center gap-2.5 rounded-full px-5 py-2.5 text-sm font-medium ' +
+    'group inline-flex items-center gap-2.5 rounded-lg px-5 py-2.5 text-sm font-medium ' +
     'transition-[transform,background-color,border-color,color] duration-500 ease-smooth ' +
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bone-100/60 focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950';
 
+  // Flat, shadowless surfaces. Primary = the single dark CTA (black in light,
+  // bronze in dark via the --primary token); secondary = hairline ghost button.
   const styles =
     variant === 'primary'
-      ? 'bg-bone-50 text-ink-950 hover:bg-bone-100 active:translate-y-px'
-      : 'border border-bone-100/15 bg-transparent text-bone-100 hover:border-bone-100/40 hover:bg-bone-100/[0.04]';
+      ? 'bg-primary text-primary-contrast hover:bg-primary-hover active:translate-y-px'
+      : 'border border-border-strong bg-transparent text-text-primary hover:bg-bone-100/[0.04]';
 
   return (
     <Link href={href} className={`${base} ${styles} ${className}`} {...rest}>

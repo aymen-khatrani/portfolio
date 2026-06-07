@@ -1,10 +1,13 @@
 import type { Metadata } from 'next';
-import { Instrument_Serif, Inter, JetBrains_Mono } from 'next/font/google';
+import { Barlow_Condensed, Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
+import GridBackground from '@/components/GridBackground';
 
-const display = Instrument_Serif({
+// Swiss-editorial display face: an ultra-condensed grotesque set at 700 with a
+// 0.90 line-height stacks headlines into monumental blocks (see globals.css).
+const display = Barlow_Condensed({
   subsets: ['latin'],
-  weight: ['400'],
+  weight: ['600', '700'],
   style: ['normal', 'italic'],
   variable: '--font-display',
   display: 'swap',
@@ -40,9 +43,20 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${display.variable} ${sans.variable} ${mono.variable}`}
     >
+      <head>
+        {/* Set the theme before first paint to avoid a flash of the wrong mode.
+            Honours a saved choice, otherwise the OS preference (default: dark). */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: light)').matches?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();`,
+          }}
+        />
+      </head>
       <body className="bg-ink-950 text-bone-100 antialiased selection:bg-moss-500/40 selection:text-bone-50">
+        <GridBackground />
         {children}
       </body>
     </html>

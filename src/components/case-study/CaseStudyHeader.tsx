@@ -37,7 +37,7 @@ export default function CaseStudyHeader({
   return (
     <header className="relative isolate px-6 pb-16 pt-32 sm:px-10 sm:pt-36 lg:px-16">
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_120%_80%_at_50%_30%,#1a221c_0%,#0a0c0b_60%,#06070a_100%)]" />
+        <div className="hero-ambient absolute inset-0" />
         <div className="editorial-grid absolute inset-0" />
         <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-ink-950 via-ink-950/40 to-transparent" />
       </div>
