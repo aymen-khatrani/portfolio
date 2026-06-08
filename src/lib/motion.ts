@@ -63,6 +63,33 @@ export const fade: Variants = {
   shown: { opacity: 1, transition: { duration: DUR.base, ease: EASE } },
 };
 
+/* ── Directional slides ─────────────────────────────────────────────────────
+   For card grids that should enter along an axis (the bento sections). Each
+   card picks a direction from its grid position so the group reads as a
+   coordinated horizontal/vertical assembly rather than a flat fade. Only
+   transform + opacity, so reduced-motion (MotionConfig reducedMotion="user")
+   keeps opacity and drops the offset automatically. */
+export type SlideFrom = 'left' | 'right' | 'up' | 'down';
+
+const OFFSET = 36;
+const slideOffset: Record<SlideFrom, { x?: number; y?: number }> = {
+  left: { x: -OFFSET },
+  right: { x: OFFSET },
+  up: { y: OFFSET },
+  down: { y: -OFFSET },
+};
+
+/** Build a reveal variant that slides in from the given edge. */
+export const slideIn = (from: SlideFrom = 'up'): Variants => ({
+  hidden: { opacity: 0, ...slideOffset[from] },
+  shown: {
+    opacity: 1,
+    x: 0,
+    y: 0,
+    transition: { duration: DUR.slow, ease: EASE },
+  },
+});
+
 /** Container that orchestrates children using the hidden/shown variant names. */
 export const staggerContainer = (
   stagger = 0.08,

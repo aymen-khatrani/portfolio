@@ -45,3 +45,6 @@ next-env.d.ts
 /acceuil-photo.png
 /public/acceuil-photo-large.png
 .vercel
+
+# claude code local config / hooks
+/.claude/

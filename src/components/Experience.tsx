@@ -3,7 +3,8 @@
 import { motion } from 'framer-motion';
 import SectionDivider from './SectionDivider';
 import SectionHeading from './SectionHeading';
-import { rise, staggerContainer, viewportOnce } from '@/lib/motion';
+import { BentoCard } from './ui/bento-grid';
+import { staggerContainer, viewportOnce } from '@/lib/motion';
 
 type Experience = {
   date: string;
@@ -85,68 +86,60 @@ export default function ExperienceSection() {
           <span className="accent-mark">une trajectoire data.</span>
         </SectionHeading>
 
-        <motion.ul
+        <motion.div
           initial="hidden"
           whileInView="shown"
           viewport={viewportOnce}
           variants={staggerContainer(0.1)}
-          className="divide-y divide-bone-100/10"
+          className="flex flex-col gap-4"
         >
-          {experiences.map((exp) => (
-            <motion.li
+          {experiences.map((exp, i) => (
+            <BentoCard
               key={`${exp.company}-${exp.date}`}
-              variants={rise}
-              className="group grid grid-cols-1 gap-y-3 py-8 transition-transform duration-500 ease-smooth md:grid-cols-[200px_1fr] md:gap-x-10 md:py-10 md:hover:translate-x-1.5"
+              featured={exp.current}
+              from={i % 2 === 0 ? 'left' : 'right'}
             >
-              {/* Left: date + status */}
-              <div className="flex flex-col gap-2">
-                <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/55">
+              {/* date + live status */}
+              <div className="mb-4 flex items-center justify-between gap-3">
+                <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/55">
                   {exp.date}
-                </div>
+                </span>
                 {exp.current && (
-                  <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.22em] text-moss-300">
+                  <span className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.22em] text-moss-300">
                     <span className="relative inline-flex h-1.5 w-1.5">
                       <span className="absolute inset-0 animate-ping rounded-full bg-moss-300/60" />
                       <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-moss-300" />
                     </span>
                     En cours
-                  </div>
+                  </span>
                 )}
               </div>
 
-              {/* Right: content */}
-              <div className="relative">
-                {/* accent bar that grows on hover — sober depth cue */}
-                <span
-                  aria-hidden
-                  className="absolute -left-5 top-1.5 hidden h-[calc(100%-0.375rem)] w-px origin-top scale-y-0 bg-moss-300/50 transition-transform duration-500 ease-smooth group-hover:scale-y-100 md:block"
-                />
-                <h3 className="text-balance text-xl leading-snug text-bone-50 sm:text-2xl">
-                  {exp.role}
-                </h3>
-                <div className="mt-1.5 font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/55">
-                  {exp.company} <span className="text-bone-100/30">·</span>{' '}
-                  {exp.location}
-                </div>
-
-                <p className="mt-5 max-w-[68ch] text-balance text-base leading-relaxed text-bone-100/75 sm:text-lg">
-                  {exp.description}
-                </p>
-
-                <ul className="mt-5 flex flex-wrap gap-1.5">
-                  {exp.tags.map((t) => (
-                    <li
-                      key={t}
-                      className="rounded-full border border-bone-100/15 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-bone-100/65 transition-colors duration-500 group-hover:border-bone-100/30"
-                    >
-                      {t}
-                    </li>
-                  ))}
-                </ul>
+              <h3 className="text-balance text-xl leading-snug text-bone-50 sm:text-[1.35rem]">
+                {exp.role}
+              </h3>
+              <div className="mt-1.5 font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/55">
+                {exp.company} <span className="text-bone-100/30">·</span>{' '}
+                {exp.location}
               </div>
-            </motion.li>
+
+              <p className="mt-4 text-balance text-[15px] leading-relaxed text-bone-100/75">
+                {exp.description}
+              </p>
+
+              <ul className="mt-auto flex flex-wrap gap-1.5 pt-6">
+                {exp.tags.map((t) => (
+                  <li
+                    key={t}
+                    className="rounded-full border border-bone-100/12 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-bone-100/60 transition-colors duration-500 group-hover:border-bone-100/25"
+                  >
+                    {t}
+                  </li>
+                ))}
+              </ul>
+            </BentoCard>
           ))}
-        </motion.ul>
+        </motion.div>
       </div>
     </section>
   );
