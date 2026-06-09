@@ -9,13 +9,11 @@ import {
   type Variants,
 } from 'framer-motion';
 import CTAButton from './CTAButton';
-import ThreeDImageHero from './ThreeDImageHero';
 import {
   clipRise,
   fade,
   rise,
   riseSoft,
-  scaleIn,
   staggerContainer,
   EASE_OUT_BACK,
 } from '@/lib/motion';
@@ -42,7 +40,6 @@ export default function Hero() {
   });
   const contentY = useTransform(scrollYProgress, [0, 1], [0, -56]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.85], [1, 0.3]);
-  const imageY = useTransform(scrollYProgress, [0, 1], [0, -96]);
 
   return (
     <section
@@ -60,12 +57,11 @@ export default function Hero() {
         initial="hidden"
         animate="shown"
         variants={staggerContainer(0.12, 0.1)}
-        className="mx-auto grid w-full max-w-[1400px] grid-cols-1 items-center gap-y-14 lg:grid-cols-[1.05fr_1fr] lg:gap-x-20"
+        className="mx-auto w-full max-w-[1400px]"
       >
         {/* Text column */}
         <motion.div
           style={reduced ? undefined : { y: contentY, opacity: contentOpacity }}
-          className="order-2 lg:order-1"
         >
           <motion.div
             variants={riseSoft}
@@ -163,20 +159,6 @@ export default function Hero() {
               <dd className="mt-1 text-bone-100/80">Polytech Lille · 5A</dd>
             </div>
           </motion.dl>
-        </motion.div>
-
-        {/* Image column — parallax wrapper (outer) + reveal (inner) kept separate
-            so the scroll MotionValue and the scaleIn entrance don't fight over y. */}
-        <motion.div
-          style={reduced ? undefined : { y: imageY }}
-          className="order-1 lg:order-2"
-        >
-          <motion.div variants={scaleIn}>
-            <ThreeDImageHero
-              src="/acceuil-photo.png"
-              alt="Portrait éditorial — Aymen Khatrani"
-            />
-          </motion.div>
         </motion.div>
       </motion.div>
 

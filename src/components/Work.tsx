@@ -71,8 +71,7 @@ export default function Work() {
           titleClassName="max-w-[20ch]"
           meta="Cliquez une carte pour la centrer · études de cas détaillées"
         >
-          Quatre projets,{' '}
-          <span className="accent-mark">de la donnée aux modèles.</span>
+          Projets
         </SectionHeading>
 
         <Reveal variant="scale">
