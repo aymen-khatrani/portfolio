@@ -131,7 +131,7 @@ export default function ExperienceSection() {
                 {exp.tags.map((t) => (
                   <li
                     key={t}
-                    className="rounded-full border border-bone-100/12 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-bone-100/60 transition-colors duration-500 group-hover:border-bone-100/25"
+                    className="rounded-[3px] border border-moss-300 bg-moss-300/[0.15] px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-moss-300"
                   >
                     {t}
                   </li>

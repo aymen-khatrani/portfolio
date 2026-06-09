@@ -1,16 +1,25 @@
 import type { Metadata } from 'next';
-import { Barlow_Condensed, Inter, JetBrains_Mono } from 'next/font/google';
+import { Oswald, Instrument_Serif, Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import GridBackground from '@/components/GridBackground';
 import MotionProvider from '@/components/MotionProvider';
 
-// Swiss-editorial display face: an ultra-condensed grotesque set at 700 with a
-// 0.90 line-height stacks headlines into monumental blocks (see globals.css).
-const display = Barlow_Condensed({
+// Poster display face: Oswald — a bold condensed grotesque set uppercase with
+// wide tracking for the anime/Japanese-poster headlines (see globals.css).
+const display = Oswald({
   subsets: ['latin'],
-  weight: ['600', '700'],
-  style: ['normal', 'italic'],
+  weight: ['400', '500', '600', '700'],
   variable: '--font-display',
+  display: 'swap',
+});
+
+// Elegant high-contrast serif — reserved for the hero name in italic, matching
+// the refined wordmark in the art direction.
+const serif = Instrument_Serif({
+  subsets: ['latin'],
+  weight: ['400'],
+  style: ['normal', 'italic'],
+  variable: '--font-serif',
   display: 'swap',
 });
 
@@ -45,7 +54,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${display.variable} ${sans.variable} ${mono.variable}`}
+      className={`${display.variable} ${serif.variable} ${sans.variable} ${mono.variable}`}
     >
       <head>
         {/* Set the theme before first paint to avoid a flash of the wrong mode.
@@ -56,7 +65,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="bg-ink-950 text-bone-100 antialiased selection:bg-moss-500/40 selection:text-bone-50">
+      <body className="bg-ink-950 font-sans text-bone-100 antialiased selection:bg-moss-500/40 selection:text-bone-50">
         <GridBackground />
         <MotionProvider>{children}</MotionProvider>
       </body>

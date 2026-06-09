@@ -101,26 +101,26 @@ export default function Navbar() {
       initial={{ y: reduced ? 0 : -24, opacity: reduced ? 1 : 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: reduced ? 0.01 : 0.7, ease: [0.22, 1, 0.36, 1] }}
-      className="fixed inset-x-0 top-0 z-50 px-4 pt-4 sm:px-6 sm:pt-5"
+      className="fixed inset-x-0 top-0 z-50"
     >
       <div
-        className={`relative mx-auto flex max-w-[1320px] items-center justify-between gap-4 rounded-full border px-5 py-3 backdrop-blur-md transition-[background-color,border-color] duration-500 ease-smooth sm:px-7 ${
+        className={`relative flex w-full items-center justify-between gap-4 border-b px-6 py-3.5 backdrop-blur-md transition-[background-color,border-color] duration-500 ease-smooth sm:px-10 lg:px-16 ${
           scrolled
-            ? 'border-ink-700 bg-ink-900/90'
-            : 'border-ink-700/60 bg-ink-900/70'
+            ? 'border-[rgba(201,133,58,0.25)] bg-[#0A0809]/90'
+            : 'border-[rgba(201,133,58,0.12)] bg-[#0A0809]/75'
         }`}
       >
         {/* Scroll-progress hairline — tracks reading position, never autonomous. */}
         <motion.span
           aria-hidden
           style={{ scaleX: reduced ? scrollYProgress : progress }}
-          className="pointer-events-none absolute inset-x-6 bottom-0 h-px origin-left bg-gradient-to-r from-transparent via-moss-300/60 to-transparent"
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-px origin-left bg-gradient-to-r from-transparent via-moss-300/70 to-transparent"
         />
         <Link
           href="/"
-          className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/80 transition-colors hover:text-bone-50"
+          className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/85 transition-colors hover:text-bone-50"
         >
-          <span className="inline-block h-1.5 w-1.5 rounded-full bg-moss-300/80" />
+          <span className="inline-block h-1.5 w-1.5 rounded-full bg-moss-300 shadow-[0_0_8px_rgba(201,133,58,0.9)]" />
           AK / Portfolio
         </Link>
 
@@ -177,8 +177,12 @@ export default function Navbar() {
           <ThemeToggle />
           <a
             href="mailto:aymen.khatrani@polytech-lille.net"
-            className="font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/80 transition-colors hover:text-bone-50"
+            className="inline-flex items-center gap-2 border border-success/40 bg-success/[0.08] px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.22em] text-bone-100/85 transition-colors hover:border-success/70 hover:text-bone-50"
           >
+            <span className="relative inline-flex h-1.5 w-1.5">
+              <span className="absolute inset-0 animate-ping rounded-full bg-success/60" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-success" />
+            </span>
             <span className="hidden sm:inline">Available · </span>Sept 2026
           </a>
         </div>

@@ -84,7 +84,7 @@ export default function SectionHeading({
         <motion.h2
           id={titleId}
           variants={reduced ? fade : clipRise}
-          className={`mt-5 ${titleClassName} font-display text-[clamp(2rem,5vw,4rem)] leading-[0.98] tracking-tightest text-bone-50`}
+          className={`mt-5 ${titleClassName} font-display text-[clamp(2rem,5vw,4rem)] font-bold uppercase leading-[1.02] tracking-[0.02em] text-bone-50`}
         >
           {children}
         </motion.h2>

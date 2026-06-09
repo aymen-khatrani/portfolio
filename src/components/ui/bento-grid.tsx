@@ -65,10 +65,11 @@ export function BentoCard({
     <motion.div
       variants={slideIn(from)}
       className={cn(
-        'group relative flex flex-col overflow-hidden rounded-2xl p-6 transition-[transform,border-color,box-shadow] duration-500 ease-smooth will-change-transform',
-        'border border-bone-100/12 bg-bone-100/[0.025] backdrop-blur-sm',
-        'hover:-translate-y-1 hover:border-bone-100/25 hover:bg-bone-100/[0.04]',
-        featured && '-translate-y-1 border-moss-300/30 bg-bone-100/[0.04]',
+        'group relative flex flex-col overflow-hidden rounded-[3px] p-6 transition-[transform,border-color,box-shadow] duration-500 ease-smooth will-change-transform',
+        'border border-moss-300/30 bg-[#14100F]/60 backdrop-blur-sm',
+        'hover:-translate-y-1 hover:border-moss-300/60 hover:shadow-[0_0_20px_rgba(201,133,58,0.2)]',
+        featured &&
+          '-translate-y-1 border-moss-300/55 bg-[#1C1716]/70 shadow-[0_0_20px_rgba(201,133,58,0.15)]',
         colSpan === 2 ? 'md:col-span-2' : 'col-span-1',
         className,
       )}
@@ -97,12 +98,12 @@ export function BentoCard({
           {(icon || status) && (
             <div className="mb-5 flex items-center justify-between">
               {icon && (
-                <span className="flex h-9 w-9 items-center justify-center rounded-lg border border-bone-100/12 bg-bone-100/[0.04] text-moss-300 transition-colors duration-500 group-hover:border-moss-300/30">
+                <span className="flex h-9 w-9 items-center justify-center rounded-[3px] border border-moss-300/30 bg-moss-300/[0.08] text-moss-300 transition-colors duration-500 group-hover:border-moss-300/60">
                   {icon}
                 </span>
               )}
               {status && (
-                <span className="ml-auto rounded-full border border-bone-100/12 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-bone-100/55">
+                <span className="ml-auto rounded-[3px] border border-moss-300/40 bg-moss-300/[0.12] px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-moss-300">
                   {status}
                 </span>
               )}
@@ -133,7 +134,7 @@ export function BentoCard({
                   {tags.map((t) => (
                     <li
                       key={t}
-                      className="rounded-full border border-bone-100/12 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-bone-100/60 transition-colors duration-500 group-hover:border-bone-100/25"
+                      className="rounded-[3px] border border-moss-300 bg-moss-300/[0.15] px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-moss-300"
                     >
                       {t}
                     </li>

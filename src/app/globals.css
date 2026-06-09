@@ -21,61 +21,61 @@
 :root {
   color-scheme: dark;
 
-  /* — scale: surfaces (warm charcoal) — */
-  --ink-950: 26 23 19;     /* #1A1713  background        */
-  --ink-900: 34 30 24;     /* #221E18  surface           */
-  --ink-800: 44 40 32;     /* #2C2820  surface elevated   */
-  --ink-700: 58 51 40;     /* #3A3328  border             */
-  --ink-600: 74 66 51;     /* #4A4233  border strong      */
-  --ink-500: 107 97 73;    /* #6B6149  mid                */
+  /* — scale: surfaces (warm near-black, anime dusk) — */
+  --ink-950: 13 10 11;     /* #0D0A0B  background        */
+  --ink-900: 20 16 17;     /* #141011  surface           */
+  --ink-800: 28 23 22;     /* #1C1716  surface elevated   */
+  --ink-700: 58 42 28;     /* #3A2A1C  border (warm)      */
+  --ink-600: 84 60 38;     /* #543C26  border strong      */
+  --ink-500: 120 90 60;    /* #785A3C  mid                */
 
-  /* — scale: foreground (warm bone) — */
-  --bone-50:  242 234 218; /* #F2EADA  text primary       */
-  --bone-100: 226 216 196; /* #E2D8C4  text / body        */
-  --bone-200: 194 182 160; /* #C2B6A0  text secondary     */
-  --bone-300: 156 144 122; /* #9C907A  text muted         */
+  /* — scale: foreground (warm white → parchment) — */
+  --bone-50:  240 237 230; /* #F0EDE6  text primary       */
+  --bone-100: 240 237 230; /* #F0EDE6  body (alpha → soft) */
+  --bone-200: 232 213 163; /* #E8D5A3  parchment secondary */
+  --bone-300: 176 162 140; /* #B0A28C  text muted         */
 
-  /* — scale: accent (bronze) — */
-  --moss-200: 221 185 140; /* #DDB98C */
-  --moss-300: 199 154 106; /* #C79A6A  primary / accent dot */
-  --moss-400: 181 137 79;  /* #B5894F */
-  --moss-500: 154 123 79;  /* #9A7B4F  selection           */
-  --moss-600: 126 101 64;  /* #7E6540 */
-  --moss-700: 74 59 38;    /* #4A3B26 */
-  --moss-800: 52 41 26;    /* #34291A */
-  --moss-900: 36 28 18;    /* #241C12 */
+  /* — scale: accent (lantern amber) — */
+  --moss-200: 232 213 163; /* #E8D5A3  parchment light */
+  --moss-300: 201 133 58;  /* #C9853A  amber — primary / accent dot */
+  --moss-400: 214 150 80;  /* #D6964F */
+  --moss-500: 201 133 58;  /* #C9853A  selection */
+  --moss-600: 168 110 48;  /* #A86E30 */
+  --moss-700: 92 62 30;    /* #5C3E1E */
+  --moss-800: 58 40 22;    /* #3A2816 */
+  --moss-900: 38 27 16;    /* #261B10 */
 
-  /* — semantic tokens (dark) — */
-  --background: #1A1713;
-  --surface: #221E18;
-  --surface-elevated: #2C2820;
-  --card: #24201A;
-  --border: #3A3328;
-  --border-strong: #4A4233;
-  --text-primary: #EFE7D6;
-  --text-secondary: #BFB39C;
-  --text-muted: #968B73;
-  --primary: #C79A6A;
-  --primary-hover: #D6AC7E;
-  --primary-contrast: #1A1713;
-  --accent: #93A07B;
-  --accent-soft: #2C3325;
-  --success: #8FB07E;
-  --warning: #D6A35A;
-  --error: #D08577;
-  --focus-ring: #C79A6A;
+  /* — semantic tokens (dark anime) — */
+  --background: #0D0A0B;
+  --surface: #141011;
+  --surface-elevated: #1C1716;
+  --card: #14100F;
+  --border: #3A2A1C;
+  --border-strong: #543C26;
+  --text-primary: #F0EDE6;
+  --text-secondary: #E8D5A3;
+  --text-muted: #B0A28C;
+  --primary: #C9853A;
+  --primary-hover: #DDA45A;
+  --primary-contrast: #0D0A0B;
+  --accent: #C9853A;
+  --accent-soft: #2A1C12;
+  --success: #6FCF8E;      /* green availability dot */
+  --warning: #D6964F;
+  --error: #8B1A1A;        /* deep lantern red */
+  --focus-ring: #C9853A;
 
-  /* Hero ambient radial gradient (dark). */
-  --hero-1: #241D14;
-  --hero-2: #1A1713;
-  --hero-3: #120F0B;
+  /* Hero ambient radial gradient (warm dusk). */
+  --hero-1: #1C140E;
+  --hero-2: #120D0A;
+  --hero-3: #0A0708;
 
-  /* Page dot-field colour (GridBackground) — warm bone glow on dark. */
-  --grid-dot: 226 216 196;
+  /* Page dot-field colour (GridBackground) — faint amber on near-black. */
+  --grid-dot: 201 133 58;
 
-  /* Swiss editorial marker accents — used the same in both themes. */
-  --marker-yellow: #fff100;
-  --marker-mint: #d1ffca;
+  /* Decorative accents. */
+  --marker-yellow: #C9853A;
+  --marker-mint: #8B1A1A;
 }
 
 /* ── Light theme — "Dayos" Swiss editorial spread ───────────────────────────
@@ -221,7 +221,7 @@ body {
    Dayos system. `.accent-mark` is theme-aware: a quiet bronze italic in dark
    (matching the existing identity) and a mint marker-swipe on light paper. */
 .accent-mark {
-  color: rgb(var(--bone-100) / 0.7);
+  color: var(--primary);
   font-style: italic;
 }
 [data-theme='light'] .accent-mark {
@@ -247,6 +247,35 @@ body {
 }
 .marker-mint {
   background: var(--marker-mint);
+}
+
+/* ── Anime / Japanese-poster decorations ────────────────────────────────────
+   The big amber "PORTFOLIO" stamp overlaid on the hero illustration's sign,
+   plus a faded kanji/katakana watermark for section + footer backgrounds. */
+.portfolio-stamp {
+  color: var(--primary);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-shadow:
+    4px 4px 0 #000,
+    0 0 30px rgba(201, 133, 58, 0.6);
+}
+
+/* Sparse Japanese watermark — uses the serif face, then system JP serifs, so it
+   reads as brushed type without shipping a heavy CJK webfont. */
+.jp-watermark {
+  font-family: var(--font-serif), 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+  color: var(--primary);
+  opacity: 0.06;
+  user-select: none;
+  pointer-events: none;
+  line-height: 0.8;
+}
+
+/* Amber hairline rule — replaces neutral <hr>/dividers in the anime theme. */
+.amber-rule {
+  border: 0;
+  border-top: 1px solid rgba(201, 133, 58, 0.2);
 }
 
 /* Perspective container for the 3D card stage. */

@@ -43,11 +43,11 @@ export default function SectionDivider() {
     >
       <motion.span
         variants={line}
-        className="h-px w-full origin-center bg-gradient-to-r from-transparent via-bone-100/20 to-transparent"
+        className="h-px w-full origin-center bg-gradient-to-r from-transparent via-moss-300/30 to-transparent"
       />
       <motion.span
         variants={mark}
-        className="absolute h-1 w-1 rotate-45 bg-bone-100/30"
+        className="absolute h-1 w-1 rotate-45 bg-moss-300/50"
       />
     </motion.div>
   );

@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef } from 'react';
+import Image from 'next/image';
 import {
   motion,
   useReducedMotion,
@@ -12,7 +13,6 @@ import CTAButton from './CTAButton';
 import {
   clipRise,
   fade,
-  rise,
   riseSoft,
   staggerContainer,
   EASE_OUT_BACK,
@@ -28,70 +28,112 @@ const ctas: Variants = {
   },
 };
 
+// Dark gradient over the illustration: opaque on the left (where the text sits),
+// clearing to reveal the storefront on the right — per the art direction.
+const OVERLAY =
+  'linear-gradient(to right, rgba(13,10,11,0.96) 32%, rgba(13,10,11,0.55) 62%, rgba(13,10,11,0.12) 100%)';
+
 export default function Hero() {
   const reduced = useReducedMotion();
   const heroRef = useRef<HTMLElement>(null);
 
-  // Subtle scroll parallax: the hero drifts up and dims as you leave it, so the
-  // page feels layered rather than a flat block. Disabled under reduced-motion.
+  // Subtle scroll parallax: text drifts up + dims, image drifts a touch more, so
+  // the hero feels layered rather than flat. Disabled under reduced-motion.
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ['start start', 'end start'],
   });
   const contentY = useTransform(scrollYProgress, [0, 1], [0, -56]);
   const contentOpacity = useTransform(scrollYProgress, [0, 0.85], [1, 0.3]);
+  const imageY = useTransform(scrollYProgress, [0, 1], [0, -80]);
 
   return (
     <section
       ref={heroRef}
-      className="noise relative isolate flex min-h-screen w-full items-center px-6 pb-16 pt-32 sm:px-10 sm:pt-36 lg:px-16"
+      className="noise relative isolate flex min-h-screen w-full items-center overflow-hidden"
     >
-      {/* Background ambience */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
-        <div className="hero-ambient absolute inset-0" />
-        <div className="editorial-grid absolute inset-0" />
-        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-ink-950 via-ink-950/40 to-transparent" />
+      {/* Background illustration — bleeds to the right */}
+      <motion.div
+        aria-hidden
+        style={reduced ? undefined : { y: imageY }}
+        className="absolute inset-0 -z-20 scale-110"
+      >
+        <Image
+          src="/background.png"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover object-right"
+        />
+      </motion.div>
+
+      {/* Dark gradient overlay + bottom fade into the page */}
+      <div aria-hidden className="absolute inset-0 -z-10" style={{ background: OVERLAY }} />
+      <div
+        aria-hidden
+        className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-[#0D0A0B] to-transparent"
+      />
+
+      {/* PORTFOLIO stamp over the storefront sign (desktop) */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute right-[5%] top-[22%] z-0 hidden select-none text-right lg:block"
+      >
+        <div className="portfolio-stamp font-display text-[clamp(3.5rem,7vw,7rem)] font-bold leading-none">
+          Portfolio
+        </div>
+        <div className="mt-3 font-display text-2xl font-light tracking-[0.45em] text-bone-200/80">
+          2025
+        </div>
       </div>
 
+      {/* Large faded kanji watermark — 未来 (mirai · "future") */}
+      <span
+        aria-hidden
+        className="jp-watermark absolute -bottom-6 right-[6%] hidden text-[clamp(8rem,16vw,16rem)] lg:block"
+      >
+        未来
+      </span>
+
+      {/* Content — LEFT, image bleeds right */}
       <motion.div
         initial="hidden"
         animate="shown"
         variants={staggerContainer(0.12, 0.1)}
-        className="mx-auto w-full max-w-[1400px]"
+        className="relative z-10 mx-auto w-full max-w-[1400px] px-6 pt-32 pb-44 sm:px-10 sm:pt-36 lg:px-16"
       >
-        {/* Text column */}
         <motion.div
           style={reduced ? undefined : { y: contentY, opacity: contentOpacity }}
-          className="flex flex-col items-center text-center"
+          className="max-w-xl"
         >
           <motion.div
             variants={riseSoft}
-            className="mb-8 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/60"
+            className="mb-8 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.22em] text-bone-200/80"
           >
-            <span className="h-px w-8 bg-bone-100/30" />
+            <span className="h-px w-8 bg-moss-300/60" />
             Data &amp; IA · Alternance — Sept 2026
-            <span className="h-px w-8 bg-bone-100/30" />
           </motion.div>
 
           <motion.h1
             variants={reduced ? fade : clipRise}
-            className="font-display text-[clamp(3rem,8vw,7rem)] leading-[0.92] tracking-tightest text-bone-50"
+            className="font-serif text-[clamp(3.5rem,9vw,8rem)] italic leading-[0.9] text-bone-50"
           >
             Aymen
             <br />
-            <span className="italic text-bone-100/90">Khatrani.</span>
+            Khatrani.
           </motion.h1>
 
           <motion.p
             variants={riseSoft}
-            className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/55"
+            className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-moss-300"
           >
             Data Scientist &amp; IA · Élève-ingénieur Polytech Lille — ISIA
           </motion.p>
 
           <motion.p
             variants={riseSoft}
-            className="mx-auto mt-6 max-w-[46ch] text-balance text-lg leading-relaxed text-bone-100/75 sm:text-xl"
+            className="mt-6 max-w-[46ch] text-balance text-lg leading-relaxed text-bone-100/80 sm:text-xl"
           >
             Data science et intelligence artificielle appliquées : machine
             learning, modélisation prédictive et data engineering — du prototype
@@ -100,7 +142,7 @@ export default function Hero() {
 
           <motion.div
             variants={ctas}
-            className="mt-10 flex flex-wrap items-center justify-center gap-3"
+            className="mt-10 flex flex-wrap items-center gap-3"
           >
             <CTAButton href="#work">Voir mes projets</CTAButton>
             <CTAButton href="mailto:aymen.khatrani@polytech-lille.net" variant="secondary">
@@ -114,7 +156,7 @@ export default function Hero() {
               target="_blank"
               rel="noreferrer noopener"
               download
-              className="link-underline group inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/55 transition-colors hover:text-bone-50"
+              className="link-underline group inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-bone-200/70 transition-colors hover:text-moss-300"
             >
               <svg
                 viewBox="0 0 16 16"
@@ -133,45 +175,40 @@ export default function Hero() {
               Télécharger le CV <span className="text-bone-100/30">· PDF · 376 KB</span>
             </a>
           </motion.div>
-
-          <motion.dl
-            variants={rise}
-            className="mx-auto mt-16 grid w-full max-w-3xl grid-cols-2 gap-x-8 gap-y-8 border-t border-bone-100/10 pt-8 font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/55 sm:grid-cols-4"
-          >
-            <div>
-              <dt className="text-bone-100/35">Basé</dt>
-              <dd className="mt-1 text-bone-100/80">Lille · mobile IDF</dd>
-            </div>
-            <div>
-              <dt className="text-bone-100/35">Focus</dt>
-              <dd className="mt-1 text-bone-100/80">ML · IA · Data Eng</dd>
-            </div>
-            <div>
-              <dt className="text-bone-100/35">Disponibilité</dt>
-              <dd className="mt-1 flex items-center justify-center gap-1.5 text-bone-100/80">
-                <span className="relative inline-flex h-1.5 w-1.5">
-                  <span className="absolute inset-0 animate-ping rounded-full bg-moss-300/60" />
-                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-moss-300" />
-                </span>
-                Sept 2026 · 1 an
-              </dd>
-            </div>
-            <div>
-              <dt className="text-bone-100/35">École</dt>
-              <dd className="mt-1 text-bone-100/80">Polytech Lille · 5A</dd>
-            </div>
-          </motion.dl>
         </motion.div>
       </motion.div>
 
-      {/* Scroll cue */}
-      <div className="pointer-events-none absolute inset-x-0 bottom-6 hidden justify-center sm:flex">
-        <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.3em] text-bone-100/45">
-          <span className="h-px w-6 bg-bone-100/20" />
-          Scroll
-          <span className="h-px w-6 bg-bone-100/20" />
+      {/* Metadata strip — full-width bar anchored to the bottom (amber rule) */}
+      <motion.dl
+        initial={{ opacity: reduced ? 1 : 0, y: reduced ? 0 : 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: reduced ? 0.01 : 0.7, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        className="absolute inset-x-0 bottom-0 z-10 mx-auto grid w-full max-w-[1400px] grid-cols-2 gap-x-8 gap-y-4 px-6 py-5 font-mono text-[11px] uppercase tracking-[0.22em] text-bone-200/70 sm:grid-cols-4 sm:px-10 lg:px-16"
+        style={{ borderTop: '1px solid rgba(201,133,58,0.2)' }}
+      >
+        <div>
+          <dt className="text-bone-100/35">Basé</dt>
+          <dd className="mt-1 text-bone-100/85">Lille · mobile IDF</dd>
         </div>
-      </div>
+        <div>
+          <dt className="text-bone-100/35">Focus</dt>
+          <dd className="mt-1 text-bone-100/85">ML · IA · Data Eng</dd>
+        </div>
+        <div>
+          <dt className="text-bone-100/35">Disponibilité</dt>
+          <dd className="mt-1 flex items-center gap-1.5 text-bone-100/85">
+            <span className="relative inline-flex h-1.5 w-1.5">
+              <span className="absolute inset-0 animate-ping rounded-full bg-moss-300/60" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-moss-300" />
+            </span>
+            Sept 2026 · 1 an
+          </dd>
+        </div>
+        <div>
+          <dt className="text-bone-100/35">École</dt>
+          <dd className="mt-1 text-bone-100/85">Polytech Lille · 5A</dd>
+        </div>
+      </motion.dl>
     </section>
   );
 }

@@ -57,11 +57,18 @@ const config: Config = {
       fontFamily: {
         display: [
           'var(--font-display)',
-          'Barlow Condensed',
           'Oswald',
+          'Barlow Condensed',
           'Roboto Condensed',
           'ui-sans-serif',
           'sans-serif',
+        ],
+        serif: [
+          'var(--font-serif)',
+          'Instrument Serif',
+          'Georgia',
+          'ui-serif',
+          'serif',
         ],
         sans:    ['var(--font-sans)', 'system-ui', 'sans-serif'],
         mono:    ['var(--font-mono)', 'ui-monospace', 'SFMono-Regular', 'monospace'],
