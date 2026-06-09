@@ -1,10 +1,10 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { motion, useScroll, useSpring } from 'framer-motion';
 import { usePrefersReducedMotion } from '@/lib/usePrefersReducedMotion';
-import ThemeToggle from './ThemeToggle';
 
 const links = [
   { href: '#about', label: 'À propos' },
@@ -56,6 +56,8 @@ const socials = [
 
 export default function Navbar() {
   const reduced = usePrefersReducedMotion();
+  const pathname = usePathname();
+  const onHome = pathname === '/';
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState<string | null>(null);
 
@@ -121,13 +123,14 @@ export default function Navbar() {
           className="flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/85 transition-colors hover:text-bone-50"
         >
           <span className="inline-block h-1.5 w-1.5 rounded-full bg-moss-300 shadow-[0_0_8px_rgba(201,133,58,0.9)]" />
-          AK / Portfolio
+          Accueil
         </Link>
 
         <nav aria-label="Primary" className="hidden md:block">
           <ul className="flex items-center gap-8">
             {links.map((l) => {
-              const isActive = !l.external && active === l.href.replace('#', '');
+              const isActive =
+                !l.external && onHome && active === l.href.replace('#', '');
               return l.external ? (
                 <li key={l.href}>
                   <a
@@ -143,7 +146,7 @@ export default function Navbar() {
               ) : (
                 <li key={l.href}>
                   <Link
-                    href={l.href}
+                    href={onHome ? l.href : `/${l.href}`}
                     data-active={isActive}
                     aria-current={isActive ? 'true' : undefined}
                     className={`link-underline font-mono text-[11px] uppercase tracking-[0.22em] transition-colors hover:text-bone-50 ${
@@ -174,7 +177,6 @@ export default function Navbar() {
               </li>
             ))}
           </ul>
-          <ThemeToggle />
           <a
             href="mailto:aymen.khatrani@polytech-lille.net"
             className="inline-flex items-center gap-2 border border-success/40 bg-success/[0.08] px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.22em] text-bone-100/85 transition-colors hover:border-success/70 hover:text-bone-50"

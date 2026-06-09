@@ -52,20 +52,35 @@ export default function Hero() {
       ref={heroRef}
       className="noise relative isolate flex min-h-screen w-full items-center overflow-hidden"
     >
-      {/* Background illustration — bleeds to the right */}
+      {/* Background illustration — animated loop, bleeds to the right.
+          Under reduced-motion we fall back to the static still (same frame). */}
       <motion.div
         aria-hidden
         style={reduced ? undefined : { y: imageY }}
         className="absolute inset-0 -z-20 scale-110"
       >
-        <Image
-          src="/background.png"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="object-cover object-right"
-        />
+        {reduced ? (
+          <Image
+            src="/background.png"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover object-right"
+          />
+        ) : (
+          <video
+            className="h-full w-full object-cover object-right"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            poster="/background.png"
+          >
+            <source src="/background.mp4" type="video/mp4" />
+          </video>
+        )}
       </motion.div>
 
       {/* Dark gradient overlay + bottom fade into the page */}
@@ -75,23 +90,33 @@ export default function Hero() {
         className="absolute inset-x-0 bottom-0 -z-10 h-40 bg-gradient-to-t from-[#0D0A0B] to-transparent"
       />
 
-      {/* PORTFOLIO stamp over the storefront sign (desktop) */}
-      <div
+      {/* Warm paper-lantern bloom — amber glow catching the dusk (top-right) */}
+      <motion.div
         aria-hidden
-        className="pointer-events-none absolute right-[5%] top-[22%] z-0 hidden select-none text-right lg:block"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: reduced ? 0.01 : 1.6, ease: 'easeOut' }}
+        className="lantern-bloom pointer-events-none absolute right-[8%] top-[10%] -z-10 h-[42vh] w-[42vh] rounded-full"
+      />
+
+      {/* Vertical brushed title — JRPG title-screen flavour, runs down the
+          right edge (人工知能 · jinkō chinō — "artificial intelligence") */}
+      <motion.div
+        aria-hidden
+        initial={{ opacity: 0, y: reduced ? 0 : 24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: reduced ? 0.01 : 1, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        className="pointer-events-none absolute right-[4.5%] top-1/2 z-0 hidden -translate-y-1/2 select-none lg:block"
       >
-        <div className="portfolio-stamp font-display text-[clamp(3.5rem,7vw,7rem)] font-bold leading-none">
-          Portfolio
-        </div>
-        <div className="mt-3 font-display text-2xl font-light tracking-[0.45em] text-bone-200/80">
-          2025
-        </div>
-      </div>
+        <span className="jp-vertical text-[clamp(2.5rem,4vw,4.25rem)] font-light text-moss-300/25">
+          人工知能
+        </span>
+      </motion.div>
 
       {/* Large faded kanji watermark — 未来 (mirai · "future") */}
       <span
         aria-hidden
-        className="jp-watermark absolute -bottom-6 right-[6%] hidden text-[clamp(8rem,16vw,16rem)] lg:block"
+        className="jp-watermark absolute -bottom-6 right-[18%] hidden text-[clamp(8rem,16vw,16rem)] lg:block"
       >
         未来
       </span>
@@ -111,22 +136,46 @@ export default function Hero() {
             variants={riseSoft}
             className="mb-8 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.22em] text-bone-200/80"
           >
-            <span className="h-px w-8 bg-moss-300/60" />
+            <span aria-hidden className="flex shrink-0 items-center gap-1">
+              <span className="slash-accent w-7" />
+              <span className="slash-accent w-3 opacity-50" />
+            </span>
             Data &amp; IA · Alternance — Sept 2026
+            <span
+              aria-hidden
+              className="font-serif text-base normal-case tracking-normal text-moss-300/70"
+            >
+              データ
+            </span>
           </motion.div>
+
+          {/* Katakana furigana reading of the name — title-screen flavour */}
+          <motion.p
+            variants={riseSoft}
+            aria-hidden
+            className="mb-3 font-serif text-lg tracking-[0.4em] text-moss-300/75 sm:text-xl"
+          >
+            アイメン・カトラニ
+          </motion.p>
 
           <motion.h1
             variants={reduced ? fade : clipRise}
-            className="font-serif text-[clamp(3.5rem,9vw,8rem)] italic leading-[0.9] text-bone-50"
+            className="title-glow font-display text-[clamp(3.5rem,11vw,8.5rem)] uppercase leading-[0.82] tracking-[-0.005em] text-bone-50"
           >
-            Aymen
-            <br />
-            Khatrani.
+            <span className="block">Aymen</span>
+            <span className="relative block w-fit">
+              Khatrani
+              {/* Persona-5 amber slash under the surname */}
+              <span
+                aria-hidden
+                className="slash-accent mt-2 w-[58%]"
+              />
+            </span>
           </motion.h1>
 
           <motion.p
             variants={riseSoft}
-            className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-moss-300"
+            className="mt-7 font-mono text-[11px] uppercase tracking-[0.22em] text-moss-300"
           >
             Data Scientist &amp; IA · Élève-ingénieur Polytech Lille — ISIA
           </motion.p>
@@ -135,9 +184,9 @@ export default function Hero() {
             variants={riseSoft}
             className="mt-6 max-w-[46ch] text-balance text-lg leading-relaxed text-bone-100/80 sm:text-xl"
           >
-            Data science et intelligence artificielle appliquées : machine
-            learning, modélisation prédictive et data engineering — du prototype
-            jusqu’à la mise en production.
+            Je transforme la donnée en décisions — machine learning, modélisation
+            prédictive et data engineering, du prototype jusqu’à la mise en
+            production.
           </motion.p>
 
           <motion.div

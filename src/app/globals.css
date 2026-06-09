@@ -278,6 +278,58 @@ body {
   border-top: 1px solid rgba(201, 133, 58, 0.2);
 }
 
+/* Vertical brushed Japanese title (tategaki) — JRPG / anime title-screen
+   flavour running down the right edge of the hero. */
+.jp-vertical {
+  writing-mode: vertical-rl;
+  font-family: var(--font-serif), 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+  letter-spacing: 0.32em;
+  line-height: 1;
+}
+
+/* Persona-5 diagonal slash — a thin skewed amber shard used as a kinetic
+   accent. Width is set per-instance with a Tailwind w-* class. */
+.slash-accent {
+  display: block;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--primary) 25%,
+    var(--primary) 75%,
+    transparent
+  );
+  transform: skewX(-26deg);
+  transform-origin: left center;
+}
+
+/* Warm paper-lantern bloom — soft amber radial glow, like lantern light
+   catching the dusk. Sits over the darkened illustration. */
+.lantern-bloom {
+  background: radial-gradient(
+    circle at center,
+    rgba(221, 164, 90, 0.3) 0%,
+    rgba(201, 133, 58, 0.12) 38%,
+    transparent 70%
+  );
+  filter: blur(10px);
+}
+
+/* Title-screen glow for the name — faint amber bloom behind the serif. */
+.title-glow {
+  text-shadow: 0 0 42px rgba(201, 133, 58, 0.28);
+}
+
+/* Swiss light theme stays clean — neutralise the JRPG decorations. */
+[data-theme='light'] .lantern-bloom,
+[data-theme='light'] .jp-vertical,
+[data-theme='light'] .slash-accent {
+  opacity: 0 !important;
+}
+[data-theme='light'] .title-glow {
+  text-shadow: none;
+}
+
 /* Perspective container for the 3D card stage. */
 .stage-perspective {
   perspective: 1600px;

@@ -14,6 +14,7 @@ export type ProjectStatus =
 
 export type StaggerProject = {
   tempId: number;
+  no: string;
   year: string;
   category: string;
   title: string;
@@ -96,6 +97,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             isCenter ? 'text-ink-950/60' : 'text-bone-100/55',
           )}
         >
+          <span className={isCenter ? 'text-ink-950' : 'text-moss-300'}>
+            N°{project.no}
+          </span>
+          <span className={isCenter ? 'text-ink-950/30' : 'text-bone-100/25'}>
+            ·
+          </span>
           {project.year}
           <span className={isCenter ? 'text-ink-950/30' : 'text-bone-100/25'}>
             ·
