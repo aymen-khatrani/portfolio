@@ -134,7 +134,7 @@ export default function Hero() {
 
           <motion.dl
             variants={rise}
-            className="mt-14 grid max-w-md grid-cols-2 gap-x-8 gap-y-4 border-t border-bone-100/10 pt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/55"
+            className="mt-16 grid w-full grid-cols-2 gap-x-8 gap-y-8 border-t border-bone-100/10 pt-8 font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/55 sm:grid-cols-4"
           >
             <div>
               <dt className="text-bone-100/35">Basé</dt>
