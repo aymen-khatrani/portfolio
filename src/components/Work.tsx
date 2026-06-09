@@ -72,7 +72,7 @@ export default function Work() {
           meta="Cliquez une carte pour la centrer · études de cas détaillées"
         >
           Quatre projets,{' '}
-          <span className="accent-mark">de la conception au scoring.</span>
+          <span className="accent-mark">de la donnée aux modèles.</span>
         </SectionHeading>
 
         <Reveal variant="scale">

@@ -83,7 +83,7 @@ export default function ExperienceSection() {
           meta="Antéchronologique · 2026 → 2022"
         >
           Cinq postes,{' '}
-          <span className="accent-mark">une trajectoire data.</span>
+          <span className="accent-mark">une trajectoire data &amp; IA.</span>
         </SectionHeading>
 
         <motion.div

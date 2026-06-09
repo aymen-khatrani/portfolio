@@ -101,10 +101,10 @@ export default function About() {
           kicker="À propos"
           titleId="about-title"
           titleClassName="max-w-[16ch]"
-          meta={<>Polytech Lille · ISIA · 4ᵉ année — orienté finance et assurance.</>}
+          meta={<>Polytech Lille · ISIA · Cycle ingénieur — data, machine learning &amp; IA.</>}
         >
           Élève-ingénieur,{' '}
-          <span className="accent-mark">data scientist en formation.</span>
+          <span className="accent-mark">orienté data &amp; IA.</span>
         </SectionHeading>
 
         {/* Bio (left) + fact cards (right) — facts slide in from the right */}
@@ -120,12 +120,15 @@ export default function About() {
               className="space-y-6 text-balance text-lg leading-relaxed text-bone-100/75"
             >
               <p>
-                En 4ᵉ année à{' '}
+                En cycle ingénieur à{' '}
                 <span className="text-bone-50">Polytech Lille (ISIA)</span>, je me
-                forme à la data science appliquée — avec une appétence particulière
-                pour la <span className="text-bone-50">finance et l’assurance</span>.
-                Scoring crédit, modélisation prédictive, séries temporelles, ML
-                interprétable : mon cœur de travail.
+                forme à la{' '}
+                <span className="text-bone-50">
+                  data science et à l’intelligence artificielle
+                </span>{' '}
+                appliquées. Machine learning, modélisation prédictive, séries
+                temporelles et ML interprétable : mon cœur de travail, avec le
+                souci constant de modèles fiables et utiles.
               </p>
               <p>
                 Mes expériences (Banque Populaire, Cimmobilier, R&amp;D
@@ -138,7 +141,7 @@ export default function About() {
               <p>
                 Je cherche une{' '}
                 <span className="text-bone-50">
-                  alternance Data Scientist d’un an, dès septembre 2026
+                  alternance Data &amp; IA pour ma 5ᵉ année, dès septembre 2026
                 </span>
                 , dans une équipe qui prend au sérieux la rigueur des modèles,
                 leur interprétabilité et leur passage en production.

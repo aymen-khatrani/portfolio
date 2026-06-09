@@ -72,7 +72,7 @@ export default function Hero() {
             className="mb-8 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/60"
           >
             <span className="h-px w-8 bg-bone-100/30" />
-            Data Science · Alternance — Sept 2026
+            Data &amp; IA · Alternance — Sept 2026
           </motion.div>
 
           <motion.h1
@@ -88,16 +88,16 @@ export default function Hero() {
             variants={riseSoft}
             className="mt-6 font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/55"
           >
-            Data Scientist · Élève-ingénieur Polytech Lille — ISIA
+            Data Scientist &amp; IA · Élève-ingénieur Polytech Lille — ISIA
           </motion.p>
 
           <motion.p
             variants={riseSoft}
             className="mt-6 max-w-[44ch] text-balance text-lg leading-relaxed text-bone-100/75 sm:text-xl"
           >
-            Data science appliquée à la finance et à l’assurance. Scoring
-            crédit, modélisation prédictive et ML interprétable — pensé pour la
-            production et les contraintes réglementaires.
+            Data science et intelligence artificielle appliquées : machine
+            learning, modélisation prédictive et data engineering — du prototype
+            jusqu’à la mise en production.
           </motion.p>
 
           <motion.div
@@ -146,7 +146,7 @@ export default function Hero() {
             </div>
             <div>
               <dt className="text-bone-100/35">Focus</dt>
-              <dd className="mt-1 text-bone-100/80">Scoring · ML · SQL</dd>
+              <dd className="mt-1 text-bone-100/80">ML · IA · Data Eng</dd>
             </div>
             <div>
               <dt className="text-bone-100/35">Disponibilité</dt>
@@ -160,7 +160,7 @@ export default function Hero() {
             </div>
             <div>
               <dt className="text-bone-100/35">École</dt>
-              <dd className="mt-1 text-bone-100/80">Polytech Lille · 4A</dd>
+              <dd className="mt-1 text-bone-100/80">Polytech Lille · 5A</dd>
             </div>
           </motion.dl>
         </motion.div>
