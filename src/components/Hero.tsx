@@ -62,6 +62,7 @@ export default function Hero() {
         {/* Text column */}
         <motion.div
           style={reduced ? undefined : { y: contentY, opacity: contentOpacity }}
+          className="flex flex-col items-center text-center"
         >
           <motion.div
             variants={riseSoft}
@@ -69,6 +70,7 @@ export default function Hero() {
           >
             <span className="h-px w-8 bg-bone-100/30" />
             Data &amp; IA · Alternance — Sept 2026
+            <span className="h-px w-8 bg-bone-100/30" />
           </motion.div>
 
           <motion.h1
@@ -89,7 +91,7 @@ export default function Hero() {
 
           <motion.p
             variants={riseSoft}
-            className="mt-6 max-w-[44ch] text-balance text-lg leading-relaxed text-bone-100/75 sm:text-xl"
+            className="mx-auto mt-6 max-w-[46ch] text-balance text-lg leading-relaxed text-bone-100/75 sm:text-xl"
           >
             Data science et intelligence artificielle appliquées : machine
             learning, modélisation prédictive et data engineering — du prototype
@@ -98,7 +100,7 @@ export default function Hero() {
 
           <motion.div
             variants={ctas}
-            className="mt-10 flex flex-wrap items-center gap-3"
+            className="mt-10 flex flex-wrap items-center justify-center gap-3"
           >
             <CTAButton href="#work">Voir mes projets</CTAButton>
             <CTAButton href="mailto:aymen.khatrani@polytech-lille.net" variant="secondary">
@@ -134,7 +136,7 @@ export default function Hero() {
 
           <motion.dl
             variants={rise}
-            className="mt-16 grid w-full grid-cols-2 gap-x-8 gap-y-8 border-t border-bone-100/10 pt-8 font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/55 sm:grid-cols-4"
+            className="mx-auto mt-16 grid w-full max-w-3xl grid-cols-2 gap-x-8 gap-y-8 border-t border-bone-100/10 pt-8 font-mono text-[11px] uppercase tracking-[0.22em] text-bone-100/55 sm:grid-cols-4"
           >
             <div>
               <dt className="text-bone-100/35">Basé</dt>
@@ -146,7 +148,7 @@ export default function Hero() {
             </div>
             <div>
               <dt className="text-bone-100/35">Disponibilité</dt>
-              <dd className="mt-1 flex items-center gap-1.5 text-bone-100/80">
+              <dd className="mt-1 flex items-center justify-center gap-1.5 text-bone-100/80">
                 <span className="relative inline-flex h-1.5 w-1.5">
                   <span className="absolute inset-0 animate-ping rounded-full bg-moss-300/60" />
                   <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-moss-300" />
