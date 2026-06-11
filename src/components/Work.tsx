@@ -22,6 +22,8 @@ const projects: StaggerProject[] = [
       kind: 'case-study',
       href: '/work/projet-ppo-ckoala',
     },
+    github: '#',
+    demo: '#',
   },
   {
     tempId: 1,
@@ -33,6 +35,8 @@ const projects: StaggerProject[] = [
       'Scoring crédit sur 5 344 clients : EDA, feature engineering, rééquilibrage SMOTE (déséquilibre ~1:7). Régression logistique retenue pour son interprétabilité réglementaire — AUC = 0,769, Gini = 0,537.',
     tags: ['R', 'scikit-learn', 'XGBoost', 'Régression log.'],
     status: { kind: 'soon' },
+    github: '#',
+    demo: '#',
   },
   {
     tempId: 2,
@@ -44,6 +48,8 @@ const projects: StaggerProject[] = [
       'Service IA d’analyse automatisée : connecteurs API d’indices de marché (énergie, fret, matières premières) + scraping Playwright. Synthèses LLM via RAG pour le suivi des coûts (TCO) et de l’empreinte CO₂ des acheteurs — en cours.',
     tags: ['Python', 'FastAPI', 'RAG · MCP', 'Playwright'],
     status: { kind: 'soon' },
+    github: '#',
+    demo: '#',
   },
   {
     tempId: 3,
@@ -55,6 +61,8 @@ const projects: StaggerProject[] = [
       'Schéma en étoile sous BigQuery (~180 k commandes : faits + dimensions produit/client/temps). Dashboard Looker — taux de retard, délais d’expédition, ventes par catégorie/région, drill-down — et prévision de demande.',
     tags: ['BigQuery', 'LookML', 'Looker Studio', 'SQL'],
     status: { kind: 'soon' },
+    github: '#',
+    demo: '#',
   },
   {
     tempId: 4,
@@ -66,6 +74,8 @@ const projects: StaggerProject[] = [
       'Tableau de bord macroéconomique sur 200+ pays (2000–2024) : modèle en étoile, mesures DAX, carte choroplèthe, drill-down région→pays sur ~5 300 indicateurs. Prévision d’espérance de vie en séries temporelles.',
     tags: ['Power BI', 'DAX', 'SQL', 'Python'],
     status: { kind: 'soon' },
+    github: 'https://github.com/aymen-khatrani/Dashboard-sante',
+    demo: '#',
   },
   {
     tempId: 5,
@@ -74,9 +84,11 @@ const projects: StaggerProject[] = [
     category: 'Data Eng · SQL',
     title: 'Analytique SQL avancée — Base e-commerce',
     description:
-      'Socle analytique sur ~500 k lignes : CTEs récursives, window functions, 4 vues matérialisées. Contrôles qualité automatisés par triggers PL/pgSQL (anomalies de stock, doublons, dérives de CA) — −60 % de temps de reporting.',
+      'Socle analytique sur ~536 k lignes : CTEs récursives, window functions, vues matérialisées. Contrôles qualité automatisés par triggers PL/pgSQL (anomalies de stock, doublons, dérives de CA) — −60 % de temps de reporting.',
     tags: ['PostgreSQL', 'PL/pgSQL', 'ETL', 'Git'],
     status: { kind: 'soon' },
+    github: 'https://github.com/aymen-khatrani/Dashboard-e-commerce',
+    demo: '#',
   },
   {
     tempId: 6,
@@ -88,6 +100,8 @@ const projects: StaggerProject[] = [
       'Validation out-of-time sur 10 saisons (~180 k obs.) : entraînement passé → test futur (17→21, puis 17+21→24), arbre de décision interprétable, CV 5-folds, gestion du déséquilibre. F1 pondéré ≈ 0,95, stable dans le temps.',
     tags: ['Python', 'pandas', 'scikit-learn'],
     status: { kind: 'soon' },
+    github: '#',
+    demo: '#',
   },
   {
     tempId: 7,
@@ -99,6 +113,8 @@ const projects: StaggerProject[] = [
       'Application 3-tier de bout en bout : EJB @Remote/@Local, persistance JPA/PostgreSQL, gestion transactionnelle. Moteur de matching géolocalisé (GPS ≤ 5 km) et tests unitaires jUnit.',
     tags: ['Java EE', 'JPA', 'EJB', 'JUnit'],
     status: { kind: 'soon' },
+    github: '#',
+    demo: '#',
   },
 ];
 
